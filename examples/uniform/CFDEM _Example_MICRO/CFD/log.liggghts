@@ -1,0 +1,3013 @@
+LIGGGHTS (Version LIGGGHTS-PUBLIC 3.8.0, compiled 2022-08-09-18:54:32 by pse, git commit 86544c3f1215bc9744d7929e3eacf53ba086af9e)
+# Simple Filter Simulation
+
+
+
+# Setting the varialbe for the simulation
+
+
+
+# geometry parameter
+
+variable DEM_domain_width equal 5000
+variable DEM_domain_height equal 50000
+variable DEM_domain_depth equal 40000
+variable DEM_sample_width equal 5000
+variable DEM_sample_top equal 10000
+variable DEM_sample_bottom equal 0
+
+
+# particle physical property
+
+variable DEM_density equal 2.5
+variable DEM_youngsModulus equal 5000
+variable DEM_poissonRatio equal 0.2
+variable DEM_coefficientRestitution equal 0.3
+variable DEM_coefficientFriction equal 0.5
+variable DEM_k_finnie equal 1
+variable DEM_cohesionEnergyDensity equal 0
+
+
+# DEM simulation setting
+
+variable DEM_particle_number equal 1400
+variable DEM_insert_rate equal 5.7e-4
+variable DEM_particle_velocity equal 1e-2
+variable DEM_time_step equal 10
+variable DEM_iteration equal 350000
+
+
+variable DEM_thermo_step equal 1000
+variable DEM_dump_step equal 10000
+variable DEM_print_step equal 10000
+variable DEM_insert_step equal 10000
+variable DEM_gravity equal 9.81e-6
+variable DEM_cutoff equal 1000
+
+
+# initialize the simulation
+
+
+units micro
+
+newton off
+
+boundary p p f
+
+atom_style granular
+
+atom_modify map array sort 0 2 # Add sort 0 2 is necessary to execute the program successfully
+
+communicate single vel yes
+
+pair_style gran model hertz tangential history cohesion sjkr
+
+read_restart ../DEM/liggghts.restart
+WARNING: Restart file version does not match LIGGGHTS version (../read_restart.cpp:507)
+  orthogonal box = (-5000 -5000 -40000) to (5000 5000 50000)
+  1 by 1 by 4 MPI processor grid
+  1400 atoms
+
+
+# define the system domain and sample region
+
+region domain block -${DEM_domain_width} ${DEM_domain_width} -${DEM_domain_width} ${DEM_domain_width} -${DEM_domain_depth} ${DEM_domain_height} units box
+region domain block -5000 ${DEM_domain_width} -${DEM_domain_width} ${DEM_domain_width} -${DEM_domain_depth} ${DEM_domain_height} units box
+region domain block -5000 5000 -${DEM_domain_width} ${DEM_domain_width} -${DEM_domain_depth} ${DEM_domain_height} units box
+region domain block -5000 5000 -5000 ${DEM_domain_width} -${DEM_domain_depth} ${DEM_domain_height} units box
+region domain block -5000 5000 -5000 5000 -${DEM_domain_depth} ${DEM_domain_height} units box
+region domain block -5000 5000 -5000 5000 -40000 ${DEM_domain_height} units box
+region domain block -5000 5000 -5000 5000 -40000 50000 units box
+
+region sample block -${DEM_sample_width} ${DEM_sample_width} -${DEM_sample_width} ${DEM_sample_width} ${DEM_sample_bottom} ${DEM_sample_top} units box
+region sample block -5000 ${DEM_sample_width} -${DEM_sample_width} ${DEM_sample_width} ${DEM_sample_bottom} ${DEM_sample_top} units box
+region sample block -5000 5000 -${DEM_sample_width} ${DEM_sample_width} ${DEM_sample_bottom} ${DEM_sample_top} units box
+region sample block -5000 5000 -5000 ${DEM_sample_width} ${DEM_sample_bottom} ${DEM_sample_top} units box
+region sample block -5000 5000 -5000 5000 ${DEM_sample_bottom} ${DEM_sample_top} units box
+region sample block -5000 5000 -5000 5000 0 ${DEM_sample_top} units box
+region sample block -5000 5000 -5000 5000 0 10000 units box
+
+# create_box 1 domain # if read_restart is used, create_box command can not be used
+
+
+
+
+
+# define the wall, insertion face and particle
+
+fix cad all mesh/surface file ../DEM/stl_file/box.stl type 1 # please be careful about the path of stl file
+INFO: mesh file (../DEM/stl_file/box.stl) is required, but data will be taken from restart file (../fix_mesh.cpp:417)
+Resetting global state of Fix cad Style mesh/surface from restart file info
+
+fix inface all mesh/surface file ../DEM/stl_file/inlet.stl type 1
+INFO: mesh file (../DEM/stl_file/inlet.stl) is required, but data will be taken from restart file (../fix_mesh.cpp:417)
+Resetting global state of Fix inface Style mesh/surface from restart file info
+
+fix granwalls all wall/gran model hertz tangential history cohesion sjkr mesh n_meshes 1 meshes cad
+Resetting global state of Fix n_neighs_mesh_cad Style property/atom from restart file info
+Resetting per-atom state of Fix n_neighs_mesh_cad Style property/atom from restart file info
+Resetting global state of Fix tracker_cad Style contacthistory/mesh from restart file info
+Resetting per-atom state of Fix tracker_cad Style contacthistory/mesh from restart file info
+
+
+
+
+# read_restart ../DEM/liggghts.restart
+group nve_group region domain
+1400 atoms in group nve_group
+
+
+
+
+fix m1 all property/global youngsModulus peratomtype ${DEM_youngsModulus}
+fix m1 all property/global youngsModulus peratomtype 5000
+
+fix m2 all property/global poissonsRatio peratomtype ${DEM_poissonRatio}
+fix m2 all property/global poissonsRatio peratomtype 0.2
+
+fix m3 all property/global coefficientRestitution peratomtypepair 1 ${DEM_coefficientRestitution}
+fix m3 all property/global coefficientRestitution peratomtypepair 1 0.3
+
+fix m4 all property/global coefficientFriction peratomtypepair 1 ${DEM_coefficientFriction}
+fix m4 all property/global coefficientFriction peratomtypepair 1 0.5
+
+fix m5 all property/global k_finnie peratomtypepair 1 ${DEM_k_finnie}
+fix m5 all property/global k_finnie peratomtypepair 1 1
+
+fix m6 all property/global cohesionEnergyDensity peratomtypepair 1 ${DEM_cohesionEnergyDensity}
+fix m6 all property/global cohesionEnergyDensity peratomtypepair 1 0
+
+
+
+# define the simulation setting
+
+fix gravi all gravity ${DEM_gravity} vector 0.0 0.0 -1.0
+fix gravi all gravity 9.81e-06 vector 0.0 0.0 -1.0
+
+neighbor ${DEM_cutoff} bin
+neighbor 1000 bin
+
+neigh_modify delay 0
+
+timestep ${DEM_time_step}
+timestep 10
+
+pair_coeff * *
+
+
+# cfd coupling
+fix cfd all couple/cfd couple_every 100000 mpi # the number is overwritten by the number in CFD/couplingProperties
+couple_every as specified in LIGGGHTS is overriden by calling external program (../fix_cfd_coupling.cpp:114)
+fix cfd2 all couple/cfd/force/implicit
+
+
+# set the process monitor parameter
+
+fix integr nve_group nve/sphere
+
+compute 1 all erotate/sphere
+
+thermo ${DEM_thermo_step}
+thermo 1000
+
+thermo_style custom step atoms
+
+thermo_modify lost ignore norm no
+
+
+
+# set the vtk output parameter
+dump dmp all custom/vtk ${DEM_dump_step} ../DEM/vtk_file/CFDEM_particle_*.vtk id type x y z ix iy iz vx vy vz fx fy fz omegax omegay omegaz radius
+dump dmp all custom/vtk 10000 ../DEM/vtk_file/CFDEM_particle_*.vtk id type x y z ix iy iz vx vy vz fx fy fz omegax omegay omegaz radius
+dump dumpstress all mesh/vtk ${DEM_dump_step} ../DEM/vtk_file/CFDEM_box_*.vtk cad wear stress
+dump dumpstress all mesh/vtk 10000 ../DEM/vtk_file/CFDEM_box_*.vtk cad wear stress
+
+# set the porosity output parameter
+variable DEM_step equal step
+variable DEM_sample_mass equal mass(all,sample)
+variable DEM_sample_porosity equal 1-v_DEM_sample_mass/(v_DEM_sample_top-v_DEM_sample_bottom)/(2*v_DEM_sample_width)/(2*v_DEM_sample_width)/v_DEM_density
+variable DEM_sample_number equal count(all,sample)
+
+fix output all print ${DEM_print_step} "${DEM_step},${DEM_sample_porosity},${DEM_sample_number}" screen no file ../Result/CFDEM_porosity.csv
+fix output all print 10000 "${DEM_step},${DEM_sample_porosity},${DEM_sample_number}" screen no file ../Result/CFDEM_porosity.csv
+
+run 0
+Resetting global state of Fix contacthistory Style contacthistory from restart file info
+Resetting per-atom state of Fix contacthistory Style contacthistory from restart file info
+Setting up run at Wed Mar  8 10:29:39 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  350000     1400 
+Loop time of 1.96775e-06 on 4 procs for 0 steps with 1400 atoms, finish time Wed Mar  8 10:29:39 2023
+
+
+Pair  time (%) = 0 (0)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0 (0)
+Outpt time (%) = 0 (0)
+Other time (%) = 1.96775e-06 (100)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+
+run 100    
+Setting up run at Wed Mar  8 10:29:39 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  350000     1400 
+  350100     1400 
+Loop time of 0.0370747 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:39 2023
+
+
+Pair  time (%) = 0.0143458 (38.6942)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00106443 (2.87105)
+Outpt time (%) = 0.000200609 (0.541094)
+Other time (%) = 0.0214639 (57.8937)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+run 100    
+Setting up run at Wed Mar  8 10:29:39 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  350100     1400 
+  350200     1400 
+Loop time of 0.0371948 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:39 2023
+
+
+Pair  time (%) = 0.0144112 (38.7452)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00106059 (2.85145)
+Outpt time (%) = 0.000199496 (0.536353)
+Other time (%) = 0.0215235 (57.867)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+run 100    
+Setting up run at Wed Mar  8 10:29:39 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  350200     1400 
+  350300     1400 
+Loop time of 0.0371544 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:39 2023
+
+
+Pair  time (%) = 0.0143603 (38.6503)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00106121 (2.8562)
+Outpt time (%) = 0.00019985 (0.537889)
+Other time (%) = 0.0215331 (57.9556)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+run 100    
+Setting up run at Wed Mar  8 10:29:39 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  350300     1400 
+  350400     1400 
+Loop time of 0.0372963 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:39 2023
+
+
+Pair  time (%) = 0.0144535 (38.7532)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105981 (2.84159)
+Outpt time (%) = 0.000201203 (0.539473)
+Other time (%) = 0.0215818 (57.8657)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+run 100    
+Setting up run at Wed Mar  8 10:29:39 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  350400     1400 
+  350500     1400 
+Loop time of 0.0374365 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:39 2023
+
+
+Pair  time (%) = 0.0144632 (38.6338)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00106458 (2.84368)
+Outpt time (%) = 0.000201978 (0.539522)
+Other time (%) = 0.0217068 (57.983)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8395.5 ave 19050 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33582
+Ave neighs/atom = 23.9871
+Neighbor list builds = 0
+Dangerous builds = 0
+run 100    
+Setting up run at Wed Mar  8 10:29:39 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  350500     1400 
+  350600     1400 
+Loop time of 0.0373218 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:39 2023
+
+
+Pair  time (%) = 0.0144489 (38.7145)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00106513 (2.85391)
+Outpt time (%) = 0.000199655 (0.534956)
+Other time (%) = 0.0216081 (57.8967)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8395.25 ave 19049 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33581
+Ave neighs/atom = 23.9864
+Neighbor list builds = 0
+Dangerous builds = 0
+run 100    
+Setting up run at Wed Mar  8 10:29:39 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  350600     1400 
+  350700     1400 
+Loop time of 0.0370833 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:39 2023
+
+
+Pair  time (%) = 0.0143924 (38.8108)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00106028 (2.85919)
+Outpt time (%) = 0.000199604 (0.538257)
+Other time (%) = 0.0214311 (57.7917)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+run 100    
+Setting up run at Wed Mar  8 10:29:39 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  350700     1400 
+  350800     1400 
+Loop time of 0.037175 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:39 2023
+
+
+Pair  time (%) = 0.0143649 (38.6413)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105972 (2.85062)
+Outpt time (%) = 0.00019981 (0.537485)
+Other time (%) = 0.0215506 (57.9705)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  350800     1400 
+  350900     1400 
+Loop time of 0.0371623 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0143999 (38.7487)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00106027 (2.85307)
+Outpt time (%) = 0.000200053 (0.538323)
+Other time (%) = 0.0215021 (57.8599)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  350900     1400 
+  351000     1400 
+Loop time of 0.0372718 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0144304 (38.7165)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00106782 (2.86496)
+Outpt time (%) = 0.000200822 (0.538804)
+Other time (%) = 0.0215728 (57.8797)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  351000     1400 
+  351100     1400 
+Loop time of 0.0372292 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0144122 (38.7122)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105859 (2.84345)
+Outpt time (%) = 0.000200089 (0.537453)
+Other time (%) = 0.0215583 (57.9069)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8395.25 ave 19049 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33581
+Ave neighs/atom = 23.9864
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  351100     1400 
+  351200     1400 
+Loop time of 0.0372974 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0144556 (38.7576)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00106898 (2.86611)
+Outpt time (%) = 0.000200193 (0.536749)
+Other time (%) = 0.0215726 (57.8396)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8395 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33580
+Ave neighs/atom = 23.9857
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  351200     1400 
+  351300     1400 
+Loop time of 0.0373467 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0144514 (38.6953)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105977 (2.83767)
+Outpt time (%) = 0.000200717 (0.537444)
+Other time (%) = 0.0216348 (57.9296)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  351300     1400 
+  351400     1400 
+Loop time of 0.0371329 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0144179 (38.8277)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105819 (2.84974)
+Outpt time (%) = 0.000199298 (0.536715)
+Other time (%) = 0.0214576 (57.7859)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  351400     1400 
+  351500     1400 
+Loop time of 0.0372183 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.014462 (38.8573)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105615 (2.83772)
+Outpt time (%) = 0.000198947 (0.534539)
+Other time (%) = 0.0215012 (57.7704)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  351500     1400 
+  351600     1400 
+Loop time of 0.0375822 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0145386 (38.6847)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00106002 (2.82052)
+Outpt time (%) = 0.000200773 (0.534224)
+Other time (%) = 0.0217829 (57.9605)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  351600     1400 
+  351700     1400 
+Loop time of 0.0371792 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0143354 (38.5576)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105301 (2.83226)
+Outpt time (%) = 0.000201457 (0.541854)
+Other time (%) = 0.0215893 (58.0683)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  351700     1400 
+  351800     1400 
+Loop time of 0.0369977 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0143574 (38.8063)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104868 (2.83444)
+Outpt time (%) = 0.000198936 (0.537698)
+Other time (%) = 0.0213927 (57.8216)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  351800     1400 
+  351900     1400 
+Loop time of 0.0371339 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0143489 (38.6411)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105453 (2.83982)
+Outpt time (%) = 0.000199982 (0.538545)
+Other time (%) = 0.0215304 (57.9806)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  351900     1400 
+  352000     1400 
+Loop time of 0.0370722 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0143784 (38.7849)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.0010522 (2.83825)
+Outpt time (%) = 0.000201395 (0.543251)
+Other time (%) = 0.0214402 (57.8336)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  352000     1400 
+  352100     1400 
+Loop time of 0.0370796 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0143657 (38.7428)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105199 (2.83712)
+Outpt time (%) = 0.000199473 (0.537959)
+Other time (%) = 0.0214625 (57.8821)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  352100     1400 
+  352200     1400 
+Loop time of 0.0371491 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0143915 (38.7398)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104807 (2.82125)
+Outpt time (%) = 0.000199975 (0.538303)
+Other time (%) = 0.0215096 (57.9007)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  352200     1400 
+  352300     1400 
+Loop time of 0.0370856 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0143647 (38.7339)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105599 (2.84745)
+Outpt time (%) = 0.000199773 (0.53868)
+Other time (%) = 0.0214652 (57.88)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  352300     1400 
+  352400     1400 
+Loop time of 0.0369506 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.0143512 (38.8388)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104842 (2.83737)
+Outpt time (%) = 0.000198495 (0.537189)
+Other time (%) = 0.0213525 (57.7867)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:40 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  352400     1400 
+  352500     1400 
+Loop time of 0.0370193 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:40 2023
+
+
+Pair  time (%) = 0.014358 (38.7853)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104832 (2.83183)
+Outpt time (%) = 0.000198777 (0.536954)
+Other time (%) = 0.0214142 (57.8459)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  352500     1400 
+  352600     1400 
+Loop time of 0.0371113 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.0143246 (38.5991)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104904 (2.82675)
+Outpt time (%) = 0.000200348 (0.539859)
+Other time (%) = 0.0215373 (58.0343)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  352600     1400 
+  352700     1400 
+Loop time of 0.0371114 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.0143811 (38.7513)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105171 (2.83394)
+Outpt time (%) = 0.000200139 (0.539293)
+Other time (%) = 0.0214784 (57.8755)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  352700     1400 
+  352800     1400 
+Loop time of 0.0371108 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.014418 (38.8512)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.0010514 (2.83313)
+Outpt time (%) = 0.000199925 (0.538724)
+Other time (%) = 0.0214415 (57.777)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  352800     1400 
+  352900     1400 
+Loop time of 0.0370799 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.0143544 (38.7121)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105556 (2.84672)
+Outpt time (%) = 0.000199582 (0.538249)
+Other time (%) = 0.0214703 (57.9029)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  352900     1400 
+  353000     1400 
+Loop time of 0.0370908 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.0143965 (38.8143)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105383 (2.84121)
+Outpt time (%) = 0.000199257 (0.537215)
+Other time (%) = 0.0214411 (57.8072)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  353000     1400 
+  353100     1400 
+Loop time of 0.0372376 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.0144221 (38.73)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105184 (2.82467)
+Outpt time (%) = 0.000200467 (0.538345)
+Other time (%) = 0.0215631 (57.9069)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  353100     1400 
+  353200     1400 
+Loop time of 0.0371391 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.0143137 (38.5408)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.0010647 (2.86678)
+Outpt time (%) = 0.000200493 (0.539842)
+Other time (%) = 0.0215602 (58.0525)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  353200     1400 
+  353300     1400 
+Loop time of 0.0370458 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.0143344 (38.6938)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104779 (2.82835)
+Outpt time (%) = 0.000198854 (0.536781)
+Other time (%) = 0.0214647 (57.9411)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  353300     1400 
+  353400     1400 
+Loop time of 0.0370625 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.014407 (38.8722)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105032 (2.83391)
+Outpt time (%) = 0.00019858 (0.535796)
+Other time (%) = 0.0214066 (57.7581)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  353400     1400 
+  353500     1400 
+Loop time of 0.0370802 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.0143718 (38.7586)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105304 (2.8399)
+Outpt time (%) = 0.000199098 (0.536939)
+Other time (%) = 0.0214563 (57.8645)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  353500     1400 
+  353600     1400 
+Loop time of 0.036988 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.0143151 (38.7021)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.0010517 (2.84335)
+Outpt time (%) = 0.000198899 (0.537738)
+Other time (%) = 0.0214223 (57.9169)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  353600     1400 
+  353700     1400 
+Loop time of 0.0371715 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.0144203 (38.794)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104871 (2.82129)
+Outpt time (%) = 0.00019947 (0.536621)
+Other time (%) = 0.021503 (57.8481)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  353700     1400 
+  353800     1400 
+Loop time of 0.0370655 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.0143619 (38.7473)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105313 (2.84127)
+Outpt time (%) = 0.000199239 (0.537532)
+Other time (%) = 0.0214512 (57.8739)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  353800     1400 
+  353900     1400 
+Loop time of 0.0369589 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.014306 (38.7078)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104738 (2.8339)
+Outpt time (%) = 0.000198846 (0.53802)
+Other time (%) = 0.0214067 (57.9202)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  353900     1400 
+  354000     1400 
+Loop time of 0.0370647 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.0143517 (38.7206)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104916 (2.83061)
+Outpt time (%) = 0.000199437 (0.538077)
+Other time (%) = 0.0214645 (57.9107)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  354000     1400 
+  354100     1400 
+Loop time of 0.0370527 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.014392 (38.8419)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104729 (2.82648)
+Outpt time (%) = 0.000198165 (0.534819)
+Other time (%) = 0.0214153 (57.7968)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:41 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  354100     1400 
+  354200     1400 
+Loop time of 0.0370405 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:41 2023
+
+
+Pair  time (%) = 0.0143833 (38.8314)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104686 (2.82625)
+Outpt time (%) = 0.000198969 (0.537164)
+Other time (%) = 0.0214114 (57.8052)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  354200     1400 
+  354300     1400 
+Loop time of 0.0370709 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143471 (38.7019)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105061 (2.83405)
+Outpt time (%) = 0.000199612 (0.53846)
+Other time (%) = 0.0214736 (57.9256)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  354300     1400 
+  354400     1400 
+Loop time of 0.0370556 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143459 (38.7145)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.0010526 (2.84058)
+Outpt time (%) = 0.000199408 (0.538131)
+Other time (%) = 0.0214577 (57.9068)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  354400     1400 
+  354500     1400 
+Loop time of 0.0370679 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143378 (38.6797)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105117 (2.83579)
+Outpt time (%) = 0.000199567 (0.538381)
+Other time (%) = 0.0214794 (57.9461)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  354500     1400 
+  354600     1400 
+Loop time of 0.0371549 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143763 (38.6929)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104901 (2.82333)
+Outpt time (%) = 0.000200338 (0.539197)
+Other time (%) = 0.0215293 (57.9446)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  354600     1400 
+  354700     1400 
+Loop time of 0.037087 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143466 (38.6836)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104941 (2.8296)
+Outpt time (%) = 0.00019953 (0.538004)
+Other time (%) = 0.0214915 (57.9488)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  354700     1400 
+  354800     1400 
+Loop time of 0.0371272 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143718 (38.7096)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105216 (2.83393)
+Outpt time (%) = 0.000200145 (0.539081)
+Other time (%) = 0.0215031 (57.9174)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  354800     1400 
+  354900     1400 
+Loop time of 0.0369724 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143537 (38.8226)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105071 (2.84187)
+Outpt time (%) = 0.000198416 (0.536661)
+Other time (%) = 0.0213696 (57.7988)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  354900     1400 
+  355000     1400 
+Loop time of 0.0370225 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143147 (38.6649)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104818 (2.8312)
+Outpt time (%) = 0.000199614 (0.53917)
+Other time (%) = 0.02146 (57.9647)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  355000     1400 
+  355100     1400 
+Loop time of 0.0371149 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143181 (38.5779)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.0010516 (2.83337)
+Outpt time (%) = 0.000200468 (0.540128)
+Other time (%) = 0.0215447 (58.0486)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  355100     1400 
+  355200     1400 
+Loop time of 0.0371153 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143731 (38.7255)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104957 (2.82787)
+Outpt time (%) = 0.000199614 (0.537823)
+Other time (%) = 0.021493 (57.9088)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  355200     1400 
+  355300     1400 
+Loop time of 0.0371859 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0144182 (38.7732)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105016 (2.82409)
+Outpt time (%) = 0.000199394 (0.536209)
+Other time (%) = 0.0215182 (57.8665)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  355300     1400 
+  355400     1400 
+Loop time of 0.0370616 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143374 (38.6854)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105428 (2.84466)
+Outpt time (%) = 0.000200067 (0.539824)
+Other time (%) = 0.0214698 (57.9301)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  355400     1400 
+  355500     1400 
+Loop time of 0.0370397 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143123 (38.6403)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105121 (2.83805)
+Outpt time (%) = 0.000200091 (0.540205)
+Other time (%) = 0.0214762 (57.9815)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  355500     1400 
+  355600     1400 
+Loop time of 0.0372136 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143665 (38.6055)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.0010552 (2.83554)
+Outpt time (%) = 0.000200967 (0.540037)
+Other time (%) = 0.0215909 (58.0189)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  355600     1400 
+  355700     1400 
+Loop time of 0.0370393 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.014386 (38.8398)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105254 (2.84168)
+Outpt time (%) = 0.000199442 (0.538461)
+Other time (%) = 0.0214014 (57.7801)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  355700     1400 
+  355800     1400 
+Loop time of 0.0370003 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143676 (38.831)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104973 (2.83709)
+Outpt time (%) = 0.000198533 (0.536572)
+Other time (%) = 0.0213844 (57.7953)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  355800     1400 
+  355900     1400 
+Loop time of 0.037099 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:42 2023
+
+
+Pair  time (%) = 0.0143732 (38.7428)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104908 (2.82778)
+Outpt time (%) = 0.000200331 (0.539991)
+Other time (%) = 0.0214764 (57.8894)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:42 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  355900     1400 
+  356000     1400 
+Loop time of 0.0371056 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0143693 (38.7254)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105024 (2.83042)
+Outpt time (%) = 0.000199285 (0.537077)
+Other time (%) = 0.0214868 (57.9071)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  356000     1400 
+  356100     1400 
+Loop time of 0.0372145 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0143734 (38.623)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105651 (2.83898)
+Outpt time (%) = 0.000200354 (0.538375)
+Other time (%) = 0.0215843 (57.9996)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  356100     1400 
+  356200     1400 
+Loop time of 0.0370966 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0143495 (38.6814)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105042 (2.83159)
+Outpt time (%) = 0.00019986 (0.538756)
+Other time (%) = 0.0214968 (57.9483)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  356200     1400 
+  356300     1400 
+Loop time of 0.0369921 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0143702 (38.8468)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104805 (2.83317)
+Outpt time (%) = 0.000198708 (0.537162)
+Other time (%) = 0.0213751 (57.7829)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  356300     1400 
+  356400     1400 
+Loop time of 0.0370104 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0143547 (38.7857)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105087 (2.8394)
+Outpt time (%) = 0.000199053 (0.537832)
+Other time (%) = 0.0214057 (57.8371)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  356400     1400 
+  356500     1400 
+Loop time of 0.0371809 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0143889 (38.6997)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.001049 (2.82133)
+Outpt time (%) = 0.000200384 (0.538943)
+Other time (%) = 0.0215426 (57.94)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  356500     1400 
+  356600     1400 
+Loop time of 0.0372177 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0143676 (38.6042)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104024 (2.79502)
+Outpt time (%) = 0.00020003 (0.537458)
+Other time (%) = 0.0216098 (58.0633)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  356600     1400 
+  356700     1400 
+Loop time of 0.0372457 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0144772 (38.8695)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104836 (2.8147)
+Outpt time (%) = 0.000199337 (0.535193)
+Other time (%) = 0.0215208 (57.7806)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  356700     1400 
+  356800     1400 
+Loop time of 0.0370653 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0143992 (38.8483)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104307 (2.81413)
+Outpt time (%) = 0.000199556 (0.538391)
+Other time (%) = 0.0214234 (57.7992)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  356800     1400 
+  356900     1400 
+Loop time of 0.0373251 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0144661 (38.7569)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104515 (2.80011)
+Outpt time (%) = 0.000199494 (0.534477)
+Other time (%) = 0.0216145 (57.9085)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  356900     1400 
+  357000     1400 
+Loop time of 0.0371745 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0143826 (38.6894)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00103926 (2.79563)
+Outpt time (%) = 0.000200123 (0.538336)
+Other time (%) = 0.0215525 (57.9766)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  357000     1400 
+  357100     1400 
+Loop time of 0.0371331 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.014412 (38.8118)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.0010404 (2.80182)
+Outpt time (%) = 0.000199051 (0.536048)
+Other time (%) = 0.0214816 (57.8503)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  357100     1400 
+  357200     1400 
+Loop time of 0.0373514 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0144947 (38.8062)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105041 (2.81224)
+Outpt time (%) = 0.000200924 (0.537927)
+Other time (%) = 0.0216054 (57.8436)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  357200     1400 
+  357300     1400 
+Loop time of 0.0371885 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.014435 (38.8158)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104054 (2.79802)
+Outpt time (%) = 0.00019945 (0.536322)
+Other time (%) = 0.0215135 (57.8499)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  357300     1400 
+  357400     1400 
+Loop time of 0.0371802 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0143961 (38.7198)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00103922 (2.7951)
+Outpt time (%) = 0.000199748 (0.537242)
+Other time (%) = 0.0215451 (57.9478)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  357400     1400 
+  357500     1400 
+Loop time of 0.037099 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0143723 (38.7405)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104309 (2.81165)
+Outpt time (%) = 0.00019656 (0.529825)
+Other time (%) = 0.021487 (57.918)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  357500     1400 
+  357600     1400 
+Loop time of 0.0373037 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:43 2023
+
+
+Pair  time (%) = 0.0144262 (38.6722)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104144 (2.79179)
+Outpt time (%) = 0.000200163 (0.536578)
+Other time (%) = 0.021636 (57.9994)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:43 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  357600     1400 
+  357700     1400 
+Loop time of 0.0372232 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.014372 (38.6103)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104601 (2.8101)
+Outpt time (%) = 0.000202292 (0.543456)
+Other time (%) = 0.0216029 (58.0362)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  357700     1400 
+  357800     1400 
+Loop time of 0.0372102 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0144101 (38.7263)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.0010428 (2.80246)
+Outpt time (%) = 0.000199051 (0.534936)
+Other time (%) = 0.0215582 (57.9364)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  357800     1400 
+  357900     1400 
+Loop time of 0.037322 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0144459 (38.7062)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.0010492 (2.81122)
+Outpt time (%) = 0.000199894 (0.535592)
+Other time (%) = 0.021627 (57.947)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  357900     1400 
+  358000     1400 
+Loop time of 0.0372078 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0143711 (38.624)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104241 (2.8016)
+Outpt time (%) = 0.000199491 (0.536153)
+Other time (%) = 0.0215947 (58.0382)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  358000     1400 
+  358100     1400 
+Loop time of 0.0371745 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0144285 (38.8129)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104472 (2.81032)
+Outpt time (%) = 0.000198814 (0.534814)
+Other time (%) = 0.0215024 (57.8419)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  358100     1400 
+  358200     1400 
+Loop time of 0.0373646 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0144464 (38.6633)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104825 (2.80547)
+Outpt time (%) = 0.000199466 (0.533837)
+Other time (%) = 0.0216705 (57.9974)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  358200     1400 
+  358300     1400 
+Loop time of 0.0371273 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0143772 (38.724)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00103851 (2.79715)
+Outpt time (%) = 0.000198645 (0.535039)
+Other time (%) = 0.021513 (57.9438)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  358300     1400 
+  358400     1400 
+Loop time of 0.037157 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0143612 (38.65)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104412 (2.81003)
+Outpt time (%) = 0.000199765 (0.537624)
+Other time (%) = 0.0215519 (58.0023)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  358400     1400 
+  358500     1400 
+Loop time of 0.0371229 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0143671 (38.7016)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104702 (2.82042)
+Outpt time (%) = 0.000199317 (0.536913)
+Other time (%) = 0.0215094 (57.9411)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  358500     1400 
+  358600     1400 
+Loop time of 0.0372148 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0144071 (38.7133)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104331 (2.80349)
+Outpt time (%) = 0.000200005 (0.537434)
+Other time (%) = 0.0215644 (57.9457)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  358600     1400 
+  358700     1400 
+Loop time of 0.0370894 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0143819 (38.7762)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00103694 (2.79578)
+Outpt time (%) = 0.000198257 (0.534538)
+Other time (%) = 0.0214723 (57.8935)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  358700     1400 
+  358800     1400 
+Loop time of 0.0371126 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0143447 (38.6519)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104591 (2.81819)
+Outpt time (%) = 0.000198994 (0.53619)
+Other time (%) = 0.021523 (57.9937)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  358800     1400 
+  358900     1400 
+Loop time of 0.0374125 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0144412 (38.5998)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104694 (2.79837)
+Outpt time (%) = 0.000201414 (0.53836)
+Other time (%) = 0.021723 (58.0634)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  358900     1400 
+  359000     1400 
+Loop time of 0.0372119 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.014376 (38.6329)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104197 (2.80011)
+Outpt time (%) = 0.00019956 (0.53628)
+Other time (%) = 0.0215943 (58.0307)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  359000     1400 
+  359100     1400 
+Loop time of 0.0372299 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0143974 (38.6715)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104101 (2.79618)
+Outpt time (%) = 0.00019987 (0.536853)
+Other time (%) = 0.0215916 (57.9955)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  359100     1400 
+  359200     1400 
+Loop time of 0.037177 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0143915 (38.7108)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104485 (2.81046)
+Outpt time (%) = 0.00020076 (0.540013)
+Other time (%) = 0.0215399 (57.9387)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  359200     1400 
+  359300     1400 
+Loop time of 0.0373512 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:44 2023
+
+
+Pair  time (%) = 0.0144744 (38.7521)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105269 (2.81837)
+Outpt time (%) = 0.000199854 (0.535067)
+Other time (%) = 0.0216243 (57.8945)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:44 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  359300     1400 
+  359400     1400 
+Loop time of 0.0370973 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:45 2023
+
+
+Pair  time (%) = 0.0143945 (38.8021)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104095 (2.80599)
+Outpt time (%) = 0.000198497 (0.53507)
+Other time (%) = 0.0214633 (57.8569)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:45 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  359400     1400 
+  359500     1400 
+Loop time of 0.0371733 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:45 2023
+
+
+Pair  time (%) = 0.0143675 (38.65)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104018 (2.79819)
+Outpt time (%) = 0.000200049 (0.538152)
+Other time (%) = 0.0215656 (58.0137)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:45 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  359500     1400 
+  359600     1400 
+Loop time of 0.0371646 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:45 2023
+
+
+Pair  time (%) = 0.0143719 (38.671)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104214 (2.80413)
+Outpt time (%) = 0.000199786 (0.537571)
+Other time (%) = 0.0215507 (57.9873)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:45 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  359600     1400 
+  359700     1400 
+Loop time of 0.0372799 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:45 2023
+
+
+Pair  time (%) = 0.0144399 (38.7337)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00105044 (2.81771)
+Outpt time (%) = 0.000199078 (0.53401)
+Other time (%) = 0.0215905 (57.9146)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.75 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33579
+Ave neighs/atom = 23.985
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:45 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  359700     1400 
+  359800     1400 
+Loop time of 0.0372169 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:45 2023
+
+
+Pair  time (%) = 0.0144231 (38.7541)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104361 (2.80412)
+Outpt time (%) = 0.000199474 (0.535976)
+Other time (%) = 0.0215508 (57.9058)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:45 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  359800     1400 
+  359900     1400 
+Loop time of 0.0370458 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:45 2023
+
+
+Pair  time (%) = 0.0143388 (38.7055)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00103994 (2.80717)
+Outpt time (%) = 0.000198579 (0.536037)
+Other time (%) = 0.0214685 (57.9513)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.25 ave 19047 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33577
+Ave neighs/atom = 23.9836
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM
+run 100    
+Setting up run at Wed Mar  8 10:29:45 2023
+
+Memory usage per processor = 7.0564 Mbytes
+    Step    Atoms 
+  359900     1400 
+  360000     1400 
+Loop time of 0.0433082 on 4 procs for 100 steps with 1400 atoms, finish time Wed Mar  8 10:29:45 2023
+
+
+Pair  time (%) = 0.0143799 (33.2036)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.00104354 (2.40956)
+Outpt time (%) = 0.00616918 (14.2448)
+Other time (%) = 0.0217156 (50.142)
+
+Nlocal:    350 ave 804 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    570.75 ave 1225 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8394.5 ave 19048 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33578
+Ave neighs/atom = 23.9843
+Neighbor list builds = 0
+Dangerous builds = 0
+write_restart ../DEM/liggghts.restartCFDEM

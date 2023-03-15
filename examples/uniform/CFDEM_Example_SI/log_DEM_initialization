@@ -1,0 +1,483 @@
+
+//   DEM_initialization   //
+
+/home/pse/Filtration_Simulator/examples/uniform/CFDEM_SI/DEM
+
+LIGGGHTS (Version LIGGGHTS-PUBLIC 3.8.0, compiled 2022-08-09-18:52:33 by pse, git commit 86544c3f1215bc9744d7929e3eacf53ba086af9e)
+Created orthogonal box = (-0.005 -0.005 -0.04) to (0.005 0.005 0.05)
+  1 by 1 by 4 MPI processor grid
+
+Reading STL file 'stl_file/box.stl' (mesh processing step 1/3) 
+
+Reading STL file 'stl_file/inlet.stl' (mesh processing step 1/3) 
+Fix particledistribution/discrete (id pdd): distribution based on mass%:
+    pts1: d=1.000000e-03 (max. bounding sphere) mass%=100.000000%
+Fix particledistribution/discrete (id pdd): distribution based on number%:
+    pts1: d=1.000000e-03 (max. bounding sphere) number%=100.000000%
+0 atoms in group nve_group
+Setting up run at Tue Mar  7 10:00:47 2023
+
+Import and parallelization of mesh cad containing 2 triangle(s) successful
+Import and parallelization of mesh inface containing 2 triangle(s) successful
+INFO: Particle insertion ins: 57.000000 particles every 10000 steps - particle rate 570.000000  (mass rate 7.461283e-04)
+      1400 particles (mass 1.832596e-03) within 240000 steps
+Memory usage per processor = 6.75955 Mbytes
+    Step    Atoms 
+       0        0 
+INFO: Particle insertion ins: inserted 57 particle templates (mass 7.461283e-05) at step 1
+ - a total of 57 particle templates (mass 7.461283e-05) inserted so far.
+       1       57 
+Loop time of 0.00491205 on 4 procs for 1 steps with 57 atoms, finish time Tue Mar  7 10:00:47 2023
+
+
+Pair  time (%) = 1.18475e-06 (0.0241193)
+Neigh time (%) = 1.48237e-05 (0.301784)
+Comm  time (%) = 8.07775e-06 (0.164448)
+Outpt time (%) = 5.33615e-05 (1.08634)
+Other time (%) = 0.0048346 (98.4233)
+
+Nlocal:    14.25 ave 57 max 0 min
+Histogram: 3 0 0 0 0 0 0 0 0 1
+Nghost:    11.75 ave 47 max 0 min
+Histogram: 3 0 0 0 0 0 0 0 0 1
+Neighs:    44.75 ave 179 max 0 min
+Histogram: 3 0 0 0 0 0 0 0 0 1
+
+Total # of neighbors = 179
+Ave neighs/atom = 3.14035
+Neighbor list builds = 1
+Dangerous builds = 0
+Setting up run at Tue Mar  7 10:00:47 2023
+
+Memory usage per processor = 6.76358 Mbytes
+    Step    Atoms 
+       1       57 
+    1000       57 
+    2000       57 
+    3000       57 
+    4000       57 
+    5000       57 
+    6000       57 
+    7000       57 
+    8000       57 
+    9000       57 
+   10000       57 
+INFO: Particle insertion ins: inserted 57 particle templates (mass 7.461283e-05) at step 10001
+ - a total of 114 particle templates (mass 1.492257e-04) inserted so far.
+   11000      114 
+   12000      114 
+   13000      114 
+   14000      114 
+   15000      114 
+   16000      114 
+   17000      114 
+   18000      114 
+   19000      114 
+   20000      114 
+INFO: Particle insertion ins: inserted 57 particle templates (mass 7.461283e-05) at step 20001
+ - a total of 171 particle templates (mass 2.238385e-04) inserted so far.
+   21000      171 
+   22000      171 
+   23000      171 
+   24000      171 
+   25000      171 
+   26000      171 
+   27000      171 
+   28000      171 
+   29000      171 
+   30000      171 
+INFO: Particle insertion ins: inserted 54 particle templates (mass 7.068583e-05) at step 30001
+ - a total of 225 particle templates (mass 2.945243e-04) inserted so far.
+WARNING: Particle insertion: Less insertions than requested (../fix_insert.cpp:814)
+   31000      225 
+   32000      225 
+   33000      225 
+   34000      225 
+   35000      225 
+   36000      225 
+   37000      225 
+   38000      225 
+   39000      225 
+   40000      225 
+INFO: Particle insertion ins: inserted 57 particle templates (mass 7.461283e-05) at step 40001
+ - a total of 282 particle templates (mass 3.691371e-04) inserted so far.
+   41000      282 
+   42000      282 
+   43000      282 
+   44000      282 
+   45000      282 
+   46000      282 
+   47000      282 
+   48000      282 
+   49000      282 
+   50000      282 
+INFO: Particle insertion ins: inserted 56 particle templates (mass 7.330383e-05) at step 50001
+ - a total of 338 particle templates (mass 4.424410e-04) inserted so far.
+WARNING: Particle insertion: Less insertions than requested (../fix_insert.cpp:814)
+   51000      338 
+   52000      338 
+   53000      338 
+   54000      338 
+   55000      338 
+   56000      338 
+   57000      338 
+   58000      338 
+   59000      338 
+   60000      338 
+INFO: Particle insertion ins: inserted 57 particle templates (mass 7.461283e-05) at step 60001
+ - a total of 395 particle templates (mass 5.170538e-04) inserted so far.
+   61000      395 
+   62000      395 
+   63000      395 
+   64000      395 
+   65000      395 
+   66000      395 
+   67000      395 
+   68000      395 
+   69000      395 
+   70000      395 
+INFO: Particle insertion ins: inserted 57 particle templates (mass 7.461283e-05) at step 70001
+ - a total of 452 particle templates (mass 5.916666e-04) inserted so far.
+   71000      452 
+   72000      452 
+   73000      452 
+   74000      452 
+   75000      452 
+   76000      452 
+   77000      452 
+   78000      452 
+   79000      452 
+   80000      452 
+INFO: Particle insertion ins: inserted 57 particle templates (mass 7.461283e-05) at step 80001
+ - a total of 509 particle templates (mass 6.662794e-04) inserted so far.
+   81000      509 
+   82000      509 
+   83000      509 
+   84000      509 
+   85000      509 
+   86000      509 
+   87000      509 
+   88000      509 
+   89000      509 
+   90000      509 
+INFO: Particle insertion ins: inserted 57 particle templates (mass 7.461283e-05) at step 90001
+ - a total of 566 particle templates (mass 7.408923e-04) inserted so far.
+   91000      566 
+   92000      566 
+   93000      566 
+   94000      566 
+   95000      566 
+   96000      566 
+   97000      566 
+   98000      566 
+   99000      566 
+  100000      566 
+INFO: Particle insertion ins: inserted 57 particle templates (mass 7.461283e-05) at step 100001
+ - a total of 623 particle templates (mass 8.155051e-04) inserted so far.
+  101000      623 
+  102000      623 
+  103000      623 
+  104000      623 
+  105000      623 
+  106000      623 
+  107000      623 
+  108000      623 
+  109000      623 
+  110000      623 
+INFO: Particle insertion ins: inserted 56 particle templates (mass 7.330383e-05) at step 110001
+ - a total of 679 particle templates (mass 8.888089e-04) inserted so far.
+WARNING: Particle insertion: Less insertions than requested (../fix_insert.cpp:814)
+  111000      679 
+  112000      679 
+  113000      679 
+  114000      679 
+  115000      679 
+  116000      679 
+  117000      679 
+  118000      679 
+  119000      679 
+  120000      679 
+INFO: Particle insertion ins: inserted 57 particle templates (mass 7.461283e-05) at step 120001
+ - a total of 736 particle templates (mass 9.634217e-04) inserted so far.
+  121000      736 
+  122000      736 
+  123000      736 
+  124000      736 
+  125000      736 
+  126000      736 
+  127000      736 
+  128000      736 
+  129000      736 
+  130000      736 
+INFO: Particle insertion ins: inserted 53 particle templates (mass 6.937684e-05) at step 130001
+ - a total of 789 particle templates (mass 1.032799e-03) inserted so far.
+WARNING: Particle insertion: Less insertions than requested (../fix_insert.cpp:814)
+  131000      789 
+  132000      789 
+  133000      789 
+  134000      789 
+  135000      789 
+  136000      789 
+  137000      789 
+  138000      789 
+  139000      789 
+  140000      789 
+INFO: Particle insertion ins: inserted 57 particle templates (mass 7.461283e-05) at step 140001
+ - a total of 846 particle templates (mass 1.107411e-03) inserted so far.
+  141000      846 
+  142000      846 
+  143000      846 
+  144000      846 
+  145000      846 
+  146000      846 
+  147000      846 
+  148000      846 
+  149000      846 
+  150000      846 
+INFO: Particle insertion ins: inserted 53 particle templates (mass 6.937684e-05) at step 150001
+ - a total of 899 particle templates (mass 1.176788e-03) inserted so far.
+WARNING: Particle insertion: Less insertions than requested (../fix_insert.cpp:814)
+  151000      899 
+  152000      899 
+  153000      899 
+  154000      899 
+  155000      899 
+  156000      899 
+  157000      899 
+  158000      899 
+  159000      899 
+  160000      899 
+INFO: Particle insertion ins: inserted 57 particle templates (mass 7.461283e-05) at step 160001
+ - a total of 956 particle templates (mass 1.251401e-03) inserted so far.
+  161000      956 
+  162000      956 
+  163000      956 
+  164000      956 
+  165000      956 
+  166000      956 
+  167000      956 
+  168000      956 
+  169000      956 
+  170000      956 
+INFO: Particle insertion ins: inserted 55 particle templates (mass 7.199483e-05) at step 170001
+ - a total of 1011 particle templates (mass 1.323396e-03) inserted so far.
+WARNING: Particle insertion: Less insertions than requested (../fix_insert.cpp:814)
+  171000     1011 
+  172000     1011 
+  173000     1011 
+  174000     1011 
+  175000     1011 
+  176000     1011 
+  177000     1011 
+  178000     1011 
+  179000     1011 
+  180000     1011 
+INFO: Particle insertion ins: inserted 54 particle templates (mass 7.068583e-05) at step 180001
+ - a total of 1065 particle templates (mass 1.394082e-03) inserted so far.
+WARNING: Particle insertion: Less insertions than requested (../fix_insert.cpp:814)
+  181000     1065 
+  182000     1065 
+  183000     1065 
+  184000     1065 
+  185000     1065 
+  186000     1065 
+  187000     1065 
+  188000     1065 
+  189000     1065 
+  190000     1065 
+INFO: Particle insertion ins: inserted 57 particle templates (mass 7.461283e-05) at step 190001
+ - a total of 1122 particle templates (mass 1.468695e-03) inserted so far.
+  191000     1122 
+  192000     1122 
+  193000     1122 
+  194000     1122 
+  195000     1122 
+  196000     1122 
+  197000     1122 
+  198000     1122 
+  199000     1122 
+  200000     1122 
+INFO: Particle insertion ins: inserted 54 particle templates (mass 7.068583e-05) at step 200001
+ - a total of 1176 particle templates (mass 1.539380e-03) inserted so far.
+WARNING: Particle insertion: Less insertions than requested (../fix_insert.cpp:814)
+  201000     1176 
+  202000     1176 
+  203000     1176 
+  204000     1176 
+  205000     1176 
+  206000     1176 
+  207000     1176 
+  208000     1176 
+  209000     1176 
+  210000     1176 
+INFO: Particle insertion ins: inserted 55 particle templates (mass 7.199483e-05) at step 210001
+ - a total of 1231 particle templates (mass 1.611375e-03) inserted so far.
+WARNING: Particle insertion: Less insertions than requested (../fix_insert.cpp:814)
+  211000     1231 
+  212000     1231 
+  213000     1231 
+  214000     1231 
+  215000     1231 
+  216000     1231 
+  217000     1231 
+  218000     1231 
+  219000     1231 
+  220000     1231 
+INFO: Particle insertion ins: inserted 57 particle templates (mass 7.461283e-05) at step 220001
+ - a total of 1288 particle templates (mass 1.685988e-03) inserted so far.
+  221000     1288 
+  222000     1288 
+  223000     1288 
+  224000     1288 
+  225000     1288 
+  226000     1288 
+  227000     1288 
+  228000     1288 
+  229000     1288 
+  230000     1288 
+INFO: Particle insertion ins: inserted 56 particle templates (mass 7.330383e-05) at step 230001
+ - a total of 1344 particle templates (mass 1.759292e-03) inserted so far.
+WARNING: Particle insertion: Less insertions than requested (../fix_insert.cpp:814)
+  231000     1344 
+  232000     1344 
+  233000     1344 
+  234000     1344 
+  235000     1344 
+  236000     1344 
+  237000     1344 
+  238000     1344 
+  239000     1344 
+  240000     1344 
+INFO: Particle insertion ins: inserted 56 particle templates (mass 7.330383e-05) at step 240001
+ - a total of 1400 particle templates (mass 1.832596e-03) inserted so far.
+  241000     1400 
+  242000     1400 
+  243000     1400 
+  244000     1400 
+  245000     1400 
+  246000     1400 
+  247000     1400 
+  248000     1400 
+  249000     1400 
+  250000     1400 
+  251000     1400 
+  252000     1400 
+  253000     1400 
+  254000     1400 
+  255000     1400 
+  256000     1400 
+  257000     1400 
+  258000     1400 
+  259000     1400 
+  260000     1400 
+  261000     1400 
+  262000     1400 
+  263000     1400 
+  264000     1400 
+  265000     1400 
+  266000     1400 
+  267000     1400 
+  268000     1400 
+  269000     1400 
+  270000     1400 
+  271000     1400 
+  272000     1400 
+  273000     1400 
+  274000     1400 
+  275000     1400 
+  276000     1400 
+  277000     1400 
+  278000     1400 
+  279000     1400 
+  280000     1400 
+  281000     1400 
+  282000     1400 
+  283000     1400 
+  284000     1400 
+  285000     1400 
+  286000     1400 
+  287000     1400 
+  288000     1400 
+  289000     1400 
+  290000     1400 
+  291000     1400 
+  292000     1400 
+  293000     1400 
+  294000     1400 
+  295000     1400 
+  296000     1400 
+  297000     1400 
+  298000     1400 
+  299000     1400 
+  300000     1400 
+  301000     1400 
+  302000     1400 
+  303000     1400 
+  304000     1400 
+  305000     1400 
+  306000     1400 
+  307000     1400 
+  308000     1400 
+  309000     1400 
+  310000     1400 
+  311000     1400 
+  312000     1400 
+  313000     1400 
+  314000     1400 
+  315000     1400 
+  316000     1400 
+  317000     1400 
+  318000     1400 
+  319000     1400 
+  320000     1400 
+  321000     1400 
+  322000     1400 
+  323000     1400 
+  324000     1400 
+  325000     1400 
+  326000     1400 
+  327000     1400 
+  328000     1400 
+  329000     1400 
+  330000     1400 
+  331000     1400 
+  332000     1400 
+  333000     1400 
+  334000     1400 
+  335000     1400 
+  336000     1400 
+  337000     1400 
+  338000     1400 
+  339000     1400 
+  340000     1400 
+  341000     1400 
+  342000     1400 
+  343000     1400 
+  344000     1400 
+  345000     1400 
+  346000     1400 
+  347000     1400 
+  348000     1400 
+  349000     1400 
+  350000     1400 
+Loop time of 88.829 on 4 procs for 349999 steps with 1400 atoms, finish time Tue Mar  7 10:02:16 2023
+
+
+Pair  time (%) = 29.386 (33.0816)
+Neigh time (%) = 0.377634 (0.425125)
+Comm  time (%) = 2.76695 (3.11492)
+Outpt time (%) = 0.181342 (0.204147)
+Other time (%) = 56.117 (63.1742)
+
+Nlocal:    350 ave 806 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+Nghost:    564.5 ave 1198 max 0 min
+Histogram: 2 0 0 0 0 0 0 0 1 1
+Neighs:    8421 ave 19116 max 0 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 33684
+Ave neighs/atom = 24.06
+Neighbor list builds = 2367
+Dangerous builds = 0
+System init for write_restart ...
