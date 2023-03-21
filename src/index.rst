@@ -5,72 +5,11 @@
 
 Welcome to Filtration_Simulator's documentation!
 ================================================
-This project simulates the crystal filter cake structure and filterability using CFD-DEM scheme. The project provides an example and some useful programs, which help the user build a customized filtration system.To install the program, please add the following line to your ~/.bashrc file and source it again. 
-
-.. code-block:: console
-
-	source $HOME/Filtration_Simulator/src/etc/bashrc
-	
-To execute the program, please enter the following command. To execute the program successfully, please make sure you install CFDEM project correctly and cfdemSolverPiso command works well. The installation guide of CFDEM project can be found in `<https://www.cfdem.com/media/CFDEM/docu/CFDEMcoupling_Manual.html#installation>`_
-
-.. code-block:: console
-
-	filtration_simulator --keyword arg
-
-To configure the simulation setting, configure.csv and CSD.csv are needed in the current directory. configure.csv defines the simulation parameters such as system dimension, insertion condition and solver setting. CSD.csv defines the crystal size distriubtion of the system. To avoid the numerical problem encountered when the particle size is too small, the parameters are defined using a customized unit system instead of SI unit. The conversion factors between SI unit system and customized unit system are shown below.The units of coupling interval is the time step of LIGGGHTS.
-
- 
-* Length: :math:`1\ \mu m=10^{-6}\ m` 
-* Time: :math:`1\ \mu s=10^{-6}\ s`
-* Mass: :math:`1\ pg=10^{-15}\ kg`
-* Velocity: :math:`1\ \mu m/ \mu s=1\ m/s`
-* Gravity: :math:`1\ \mu m/{\mu s^2}=10^{6}\ m/s^2`
-* Density: :math:`1\ pg/{\mu m^3}=10^{3}\ kg/m^3`
-* Pressure (Youngs's Modulus): :math:`1\ pg/(\mu m  \cdot \mu s^2)=10^{3}\ kg/(m \cdot s^2)`
-* Cohesion Energy Density: :math:`1\ pg/(\mu m  \cdot \mu s^2)=10^{3}\ kg/(m \cdot s^2)`
-* Dynamic Viscosity: :math:`1\ pg/(\mu m \cdot \mu s)=10^{-3}\ kg/(m \cdot s)`
-* Kinematic Viscosity: :math:`1\ {\mu m^2}/{\mu s}=10^{-6}\ m^2/s`
-* Filter Cake Resistance: :math:`1\ {\mu m}/pg=10^{9}\ m/kg`
-
-When the program is executed, the base case in src/resource/base case is copied to ./CFDEM and modified according to the content of configure.csv and CSD.csv. The file structure of CFDEM is shown below. The geometry of insertion face and bottom wall need to be defined as stl file in DEM/stl_file directory. If the location and dimension of the stl files need to be changed, users can edit the box.blend in DEM/stl_file using blender software, and export the geometry as stl files. The file names should be kept the same as the examples. When stl files are exported, only the value is exported ,and the unit information is lost. Thus, the default unit should be the same as the unit of LIGGGHTS.
-  
-* Allrun.sh: the execution script for simulation
-* clean_case.sh: clean the previous simulation result
-* parDEMrun.sh: create the filter cake structure using DEM
-* parCFDEMrun.sh: execute the CFDEM simulation
-* DEM
-
-  * stl_file: stl file for insertion face and bottom wall
-  * vtk_file: simulation result of DEM
-  * liggghts_init.txt: create the filter cake structure
-  * liggghts_run.txt: coupling file for CFDEM simulation
-* CFDEM
-
-  * 0: initial condition of each field
-  * constant: physical property and coupling property
-  * postProcessing: the sampling result of CFDEM 
-  * system: mesh information and solver setting
-  * VTK: simulation result of CFDEM
-* Result: The sampling result of DEM and CFDEM
-
-To get familiar with the files in CFDEM diresctory, users can refer to files in examples/uniform/CFDEM. To change the number of processors used in DEM and CFD-DEM, users can change the nrProcs parameters of parDEMrun.sh and parCFDEMrun.sh. To check the number of processors, please type the following commands through command line.
-
-.. code-block:: console
-
-	cat /proc/cpuinfo | grep "^cpu cores" | uniq
-
-For post-processing, the situation is a little bit complicated. The *reconstructPar -noLagrangian* command is used in parCFDEMrun.sh script to combine the simulation results of each processor as one .foam file. Furthermore, to make the post-processing easier, the .foam file is transformed to vtk files using *foamToVTK* command. However, it's found that to use *reconstructPar*, *foamToVTK* or *parafoam* commands, a different version of openfoam is needed. According to my experience, version 5.x can be used for CFDEM simulation, and version 9 can be used for post-processing. To install the openfoam version 9, type the following commands through command line. Although openfoam9 is installed, it's not configured. To configure openfoam9, a command *source /opt/openfoam9/etc/bashrc* is added to parCFDEMrun.sh script. Thus, if users want to excute Allrun.sh again, the terminal must be closed and open again, or the openfoam version will become version 9 and the execution of CFDEM will not be successful.  
-
-.. code-block:: console
-
-	sudo sh -c "wget -O - https://dl.openfoam.org/gpg.key > /etc/apt/trusted.gpg.d/openfoam.asc"
-	sudo add-apt-repository http://dl.openfoam.org/ubuntu   
-	sudo apt-get update
-	sudo apt-get -y install openfoam9
-
-To visaulize the simulation result of CFD-DEM, the vtk files in CFD/VTK directory (for velocity and pressure field) and DEM/vtk directory (for filter cake) should be imported into paraview software.
 
 
+
+Module Dictionary
+===================
 .. toctree::
 	data
 	figure

@@ -4,12 +4,20 @@ from data import *
 from figure import *
 from utility import *
 
-size=variable("size","um",[5e-4])
-volume_fraction=variable("volume fraction","-",[1])
+# access to the files in src/resource directory
+#base=os.path.dirname(__file__)
+#file=base+"/resource/prime_table.csv"
+#prime_table=csv_input(file)
 
-estimate_particle_number(size,volume_fraction,0.01)
-estimate_time_step(5e-4,0.2,2500,5e6)
-estimate_insert_rate(1400,1e-5,350000)
-estimate_resistance_from_CFDEM(2.8,1.83e-3,1e-4,1e-3,1e-3)
-estimate_resistance_from_Ergun(1e-3,0.373,2500)
-estimate_particle_mass(1400,1e-3,2500)
+
+# read the crystal size distribution
+tmp1=variable_read("CSD.csv")
+size=tmp1[0] # the size is radius instead of diameter
+fraction=tmp1[1]
+
+cake_porosity=0.4
+sphericity=1
+crystal_density=2500
+
+cake_resistance=estimate_cake_resistance(size,fraction,cake_porosity,sphericity,crystal_density)
+print("estimated cake resistance= "+"{:.2e}".format(cake_resistance)+" m/kg")

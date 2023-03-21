@@ -1,0 +1,75 @@
+ /*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     cfdemSolverPiso;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime 1e-2 ; 
+
+deltaT 1e-4 ; 
+
+writeControl    adjustableRunTime;
+
+writeInterval 1e-3 ; 
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+
+// functions must be defined before ****** line
+functions
+{
+    probes
+    {
+        type        probes;
+        functionObjectLibs ( "libsampling.so" );  
+        name        probes;
+        probeLocations
+        (
+		( 0 0 0.0050 )  
+		( 0 0 -0.0040 ) 
+        );
+
+        fields ( p U voidfraction);
+
+        outputControl   runTime;
+	outputInterval 1e-3 ; 
+    }
+
+}
+
+
+// ************************************************************************* //
+
+
+
