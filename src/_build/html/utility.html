@@ -13,10 +13,10 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="document.py module" href="document.html" />
     <link rel="prev" title="figure.py module" href="figure.html" /> 
 </head>
 
@@ -39,6 +39,7 @@
 <li class="toctree-l1"><a class="reference internal" href="data.html">data.py module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="figure.html">figure.py module</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">utility.py module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="document.html">document.py module</a></li>
 </ul>
 
         </div>
@@ -115,6 +116,60 @@
 </table>
 </dd></dl>
 
+<dl class="function">
+<dt id="utility.estimate_cake_resistance">
+<code class="descclassname">utility.</code><code class="descname">estimate_cake_resistance</code><span class="sig-paren">(</span><em>size</em>, <em>volume_fraction</em>, <em>cake_porosity</em>, <em>sphericity</em>, <em>crystal_density</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.estimate_cake_resistance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the cake resistance based on the size distribution and cake porosity of the cake</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> (<em>float</em>) – crystal size (um)</li>
+<li><strong>volume_fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</li>
+<li><strong>cake_porosity</strong> (<em>float</em>) – cake porosity (-)</li>
+<li><strong>sphericity</strong> (<em>float</em>) – sphericity of the crystal (-)</li>
+<li><strong>crystal_density</strong> – crystal density (kg/m^3)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">cake resistance</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="utility.estimate_system_dimension">
+<code class="descclassname">utility.</code><code class="descname">estimate_system_dimension</code><span class="sig-paren">(</span><em>size</em>, <em>volume_fraction</em>, <em>particle_number</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.estimate_system_dimension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the required system dimension to accommodate the specified particle number</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> (<em>float</em>) – crystal size (um)</li>
+<li><strong>volume_fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</li>
+<li><strong>particle_number</strong> (<em>float</em>) – target particle number</li>
+<li><strong>sphericity</strong> (<em>float</em>) – sphericity of the crystal (-)</li>
+<li><strong>crystal_density</strong> – crystal density (kg/m^3)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">system dimension (um)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 
 
@@ -122,6 +177,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="figure.html" class="btn btn-neutral float-left" title="figure.py module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="document.html" class="btn btn-neutral float-right" title="document.py module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

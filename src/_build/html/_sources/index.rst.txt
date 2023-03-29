@@ -14,6 +14,7 @@ Module Dictionary
 	data
 	figure
 	utility
+	document
 
 
 Indices and tables
