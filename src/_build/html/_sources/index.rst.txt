@@ -5,21 +5,11 @@
 
 Welcome to Filtration_Simulator's documentation!
 ================================================
+This program generates the cake structure and estimates the cake filterability with specified crystal size distribution using (discrete element method + Kozeny-Carman equation). 
 
+Outline
+================================================
 
-
-Module Dictionary
-===================
 .. toctree::
-	data
-	figure
-	utility
-	document
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+	manual
+	Module Dictionary

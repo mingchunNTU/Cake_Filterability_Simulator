@@ -11,7 +11,7 @@ for i in range(10):
 	else:
 		tmp1.pop(0)
 
-tmp2=["tmp1","tmp2","tmp3"]
+tmp2=["number of iteration","porosity of sampling region","number of particles in the sampling region"]
 tmp3=["-","-","-"]
 tmp1.insert(0,tmp3)
 tmp1.insert(0,tmp2)

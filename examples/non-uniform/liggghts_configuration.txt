@@ -5,22 +5,25 @@
 # Setting the varialbe for the simulation
 
 
-
+########################################## variable definition section############################################
 # geometry parameter
 
-variable DEM_domain_half_width equal 286
-variable DEM_domain_height equal 2859 
-variable DEM_domain_depth equal 2287
+variable DEM_domain_half_width equal 114
+variable DEM_domain_height equal 1144 
+variable DEM_domain_depth equal 915
 
-variable DEM_insertion_half_width equal 286
-variable DEM_insertion_top equal 1144 
+variable DEM_insertion_half_width equal 114
+variable DEM_insertion_top equal 457 
 variable DEM_insertion_bottom equal 0.0
 
-variable DEM_sample_half_width equal 286.0 
-variable DEM_sample_top equal 572 
+variable DEM_sample_half_width equal 114 
+variable DEM_sample_top equal 229 
 variable DEM_sample_bottom equal 0.0 
 
 variable DEM_zwall equal 0.0
+
+variable DEM_cutoff equal 50
+
 
 # particle physical property
 
@@ -44,9 +47,9 @@ variable DEM_iteration equal 1000000
 variable DEM_thermo_step equal 1000 
 variable DEM_dump_step equal 10000 
 variable DEM_print_step equal 10000 
-variable DEM_gravity equal 9.81e-6 
-variable DEM_cutoff equal 50 
+variable DEM_gravity equal 9.81e-6  
 
+####################################################################################################################
 
 # initialize the simulation
 
@@ -80,11 +83,12 @@ region bc block -${DEM_insertion_half_width} ${DEM_insertion_half_width} -${DEM_
 fix granwalls all wall/gran model hertz tangential history cohesion sjkr primitive type 1 zplane ${DEM_zwall}
 
 
+########################################### particle template section########################################################
 # define the size distribution of the particle
 fix pts1 all particletemplate/sphere 10007 atom_type 1 density constant ${DEM_density} radius constant 10.0 
 fix pts2 all particletemplate/sphere 10009 atom_type 1 density constant ${DEM_density} radius constant 25.0 
-fix pdd all particledistribution/discrete/massbased 32452843 2 pts1 0 pts2 1 
-
+fix pdd all particledistribution/discrete/massbased 32452843 2 pts1 1.0 pts2 0.0 
+#############################################################################################################################
 
 # define the insertion condition
 group nve_group region domain 

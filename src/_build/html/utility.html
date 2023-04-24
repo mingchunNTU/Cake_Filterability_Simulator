@@ -15,9 +15,7 @@
         <script type="text/javascript" src="_static/language_data.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="document.py module" href="document.html" />
-    <link rel="prev" title="figure.py module" href="figure.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -35,11 +33,12 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="data.html">data.py module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="figure.html">figure.py module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">utility.py module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="document.html">document.py module</a></li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="manual.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#program-command">Program Command</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#file-structure">File Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#parallel-computing">Parallel computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 
         </div>
@@ -68,6 +67,24 @@
              
   <div class="section" id="module-utility">
 <span id="utility-py-module"></span><h1>utility.py module<a class="headerlink" href="#module-utility" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="utility.CSD_generator">
+<code class="descclassname">utility.</code><code class="descname">CSD_generator</code><span class="sig-paren">(</span><em>size</em>, <em>volume_fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.CSD_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a txt file that contains the CSD information needed for LIGGGHTS simulation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>size</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – crystal size (um)</li>
+<li><strong>volume_fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="function">
 <dt id="utility.NF_to_VF">
 <code class="descclassname">utility.</code><code class="descname">NF_to_VF</code><span class="sig-paren">(</span><em>size</em>, <em>number_fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.NF_to_VF" title="Permalink to this definition">¶</a></dt>
@@ -175,10 +192,7 @@
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="figure.html" class="btn btn-neutral float-left" title="figure.py module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="document.html" class="btn btn-neutral float-right" title="document.py module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 
