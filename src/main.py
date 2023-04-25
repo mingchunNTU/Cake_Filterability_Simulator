@@ -18,8 +18,7 @@ def read_CSD():
     tmp1=variable_read("CSD/CSD.csv")
     size=tmp1[0] # the size is crystal diameter instead of crystal radius. The unit should be um
     fraction=tmp1[1] # the fraction is number or volume fraction instead of number or volume percentage
-    output=size,fraction
-    return output
+    return size, fraction
 
 if sys.argv[1]=="--estimate_resistance":
     size,fraction=read_CSD()

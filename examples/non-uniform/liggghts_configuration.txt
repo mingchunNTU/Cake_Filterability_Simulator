@@ -8,16 +8,16 @@
 ########################################## variable definition section############################################
 # geometry parameter
 
-variable DEM_domain_half_width equal 114
-variable DEM_domain_height equal 1144 
-variable DEM_domain_depth equal 915
+variable DEM_domain_half_width equal 141
+variable DEM_domain_height equal 1411 
+variable DEM_domain_depth equal 1129
 
-variable DEM_insertion_half_width equal 114
-variable DEM_insertion_top equal 457 
+variable DEM_insertion_half_width equal 141
+variable DEM_insertion_top equal 565 
 variable DEM_insertion_bottom equal 0.0
 
-variable DEM_sample_half_width equal 114 
-variable DEM_sample_top equal 229 
+variable DEM_sample_half_width equal 141 
+variable DEM_sample_top equal 282 
 variable DEM_sample_bottom equal 0.0 
 
 variable DEM_zwall equal 0.0
@@ -40,8 +40,8 @@ variable DEM_cohesionEnergyDensity equal 0
 
 variable DEM_particle_number equal 2000
 variable DEM_particle_velocity equal 0.01
-variable DEM_time_step equal 0.01
-variable DEM_iteration equal 1000000 
+variable DEM_size_of_time_step equal 0.01
+variable DEM_number_of_time_step equal 1000000 
 
 
 variable DEM_thermo_step equal 1000 
@@ -87,7 +87,7 @@ fix granwalls all wall/gran model hertz tangential history cohesion sjkr primiti
 # define the size distribution of the particle
 fix pts1 all particletemplate/sphere 10007 atom_type 1 density constant ${DEM_density} radius constant 10.0 
 fix pts2 all particletemplate/sphere 10009 atom_type 1 density constant ${DEM_density} radius constant 25.0 
-fix pdd all particledistribution/discrete/massbased 32452843 2 pts1 1.0 pts2 0.0 
+fix pdd all particledistribution/discrete/massbased 32452843 2 pts1 0.5 pts2 0.5 
 #############################################################################################################################
 
 # define the insertion condition
@@ -119,7 +119,7 @@ neighbor ${DEM_cutoff} bin
 
 neigh_modify delay 0
 
-timestep ${DEM_time_step}
+timestep ${DEM_size_of_time_step}
 
 pair_coeff * *
 
@@ -165,7 +165,7 @@ fix output all print ${DEM_print_step} "${DEM_step},${DEM_sample_porosity},${DEM
 
 # run the simulation
 
-run ${DEM_iteration} upto
+run ${DEM_number_of_time_step} upto
 
 unfix ins
 
