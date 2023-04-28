@@ -40,23 +40,42 @@ if sys.argv[1]=="--estimate_system_dimension":
     particle_number=float(sys.argv[2])
     system_dimension=estimate_system_dimension(size,fraction,particle_number)
     
-    #print("suggested system dimension="+"{:.2e}".format(system_dimension)+" um")
+    # output the result
     print("")
-    print("suggested DEM_domain_half_width="+"{:.0f}".format(system_dimension/2)+" um")
-    print("suggested DEM_domain_height="+"{:.0f}".format(system_dimension*5)+" um")
-    print("suggested DEM_doamin_depth="+"{:.0f}".format(system_dimension*4)+" um \n")
+    print("suggested half width of the domain="+"{:.0f}".format(system_dimension/2)+" um")
+    print("suggested height of the domain="+"{:.0f}".format(system_dimension*5)+" um")
+    print("suggested depth of the domain="+"{:.0f}".format(system_dimension*4)+" um \n")
 
-    print("suggested DEM_insertion_half_width="+"{:.0f}".format(system_dimension/2)+" um")
-    print("suggested DEM_insertion_top="+"{:.0f}".format(system_dimension*2)+" um")
-    print("suggested DEM_insertion_bottom ="+"{:.0f}".format(0)+" um \n")
+    print("suggested half width of the insertion region="+"{:.0f}".format(system_dimension/2)+" um")
+    print("suggested top position of the insertion region="+"{:.0f}".format(system_dimension*2)+" um")
+    print("suggested bottom position of the insertion region="+"{:.0f}".format(0)+" um \n")
 
-    print("suggested DEM_sampling_half_width="+"{:.0f}".format(system_dimension/2)+" um")
-    print("suggested DEM_sampling_top="+"{:.0f}".format(system_dimension)+" um")
-    print("suggested DEM_sampling_bottom="+"{:.0f}".format(0)+" um \n")
-
-    print("suggested DEM_zwall="+"{:.2f}".format(0)+" um\n")
+    print("suggested half width of the sample region="+"{:.0f}".format(system_dimension/2)+" um")
+    print("suggested top position of the sample region="+"{:.0f}".format(system_dimension)+" um")
+    print("suggested bottom position of the sample region="+"{:.0f}".format(0)+" um \n")
     
-    print("suggested DEM_cutoff="+"{:.2f}".format(size.value[-1])+" um")
+    print("suggested collision detection limit="+"{:.2f}".format(size.value[-1])+" um \n")
+
+    print("#################LIGGGHTS input#############################################\n")
+
+    print("variable DEM_domain_half_width equal "+"{:.0f}".format(system_dimension/2))
+    print("variable DEM_domain_height equal "+"{:.0f}".format(system_dimension*5))
+    print("variable DEM_domain_depth equal "+"{:.0f}".format(system_dimension*4)+"\n")
+
+    print("variable DEM_insertion_half_width equal "+"{:.0f}".format(system_dimension/2))
+    print("variable DEM_insertion_top equal "+"{:.0f}".format(system_dimension*2))
+    print("variable DEM_insertion_bottom equal "+"{:.0f}".format(0)+"\n")
+
+    print("variable DEM_sample_half_width equal "+"{:.0f}".format(system_dimension/2))
+    print("variable DEM_sample_top equal "+"{:.0f}".format(system_dimension))
+    print("variable DEM_sample_bottom equal "+"{:.0f}".format(0)+"\n")
+
+    print("variable DEM_zwall equal "+"{:.2f}".format(0)+"\n")
+    
+    print("variable DEM_cutoff equal "+"{:.2f}".format(size.value[-1])+"\n")
+
+    print("variable DEM_particle_number equal "+"{:.2f}".format(particle_number))
+
     
     program_checker=1
 
@@ -73,7 +92,7 @@ if sys.argv[1]=="--estimate_system_dimension":
 if sys.argv[1]=="--CSD_script_generator":
     size,fraction=read_CSD()
     
-    # test the CSD_generator module
+    # use the CSD_generator module
     CSD_generator(size,fraction)
     program_checker=1
 
@@ -95,9 +114,19 @@ if sys.argv[1]=="--estimate_time_step":
 
     program_checker=1
 
+if sys.argv[1]=="--estimate_particle_number":
+    
+    # read crystal size distribution
+    size,volume_fraction=read_CSD()
+    size,number_fraction=VF_to_NF(size,volume_fraction)
 
+    # read mimimum non-zero number fraction
+    minimum_number_fraction=non_zero_minimum(number_fraction.value)
+    minimum_particle_number=int(1/minimum_number_fraction)+1
 
+    print("The minimum particle number should be "+str(minimum_particle_number))
 
+    program_checker=1
 
 if program_checker==0:
     print("The argument may be wrong")

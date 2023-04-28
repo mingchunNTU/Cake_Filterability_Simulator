@@ -74,7 +74,7 @@
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p>It is suggested to install the program on a computer with Ubuntu 20.04.6 or newer version. The program is based on the open source DEM software <a class="reference external" href="https://www.cfdem.com/media/DEM/docu/Manual.html">LIGGGHTS</a>. Please install <a class="reference external" href="https://www.cfdem.com/media/CFDEM/docu/CFDEMcoupling_Manual.html">CFDEM</a>, which will help you install and configure LIGGGHTS automatically. After you install CFDEM, please execute the ErgunTestMPI example in tutorials/cfdemSolverPiso/ErgunTestMPI. If the simulation ends successfully, your installlation is complete and parDEMrun command is available.</p>
-<p>Furthermore, the program is written in Python. Please make sure that you install Python 3 including numpy, matplotlib, scipy, csv, copy, datetime and os package on your computer.</p>
+<p>Furthermore, the program is written in Python. Please make sure that you install Python 3 including <strong>numpy, matplotlib, scipy, csv, copy, datetime and os</strong> package on your computer.</p>
 <p>To install the program, please install git and clone the source code of the project</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ~</span>
 <span class="go">sudo apt-get install git</span>
@@ -88,7 +88,7 @@
 </div>
 <div class="section" id="program-command">
 <h1>Program Command<a class="headerlink" href="#program-command" title="Permalink to this headline">¶</a></h1>
-<p>The program provides four commands that help generate LIGGGHTS input script and estimate the cake resistance based on the LIGGGHTS simulation result. All the parameters are in SI units.</p>
+<p>The program provides four commands that help generate LIGGGHTS input script and estimate the cake resistance based on the LIGGGHTS simulation result. All the parameters are in SI units. Please substitute the parameters such as <em>porosity, particle_density or poisson_ratio</em> with a number with physical meaning <strong>instead of putting the string on the command line directly</strong>, or an error message may occur.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> estimate the cake resistance according the the speficied crystal size distribution and crystal property
 <span class="go">filtration_simulator --estimate_resistance porosity particle_density</span>
 
@@ -100,6 +100,9 @@
 
 <span class="gp">#</span> estimate the Rayleigh <span class="nb">time</span> step based on the particle radius and property
 <span class="go">filtration_simulator --estimate_time_step particle_radius Young&#39;s_Modulus poisson_ratio particle_density</span>
+
+<span class="gp">#</span> estimate the minimum number of particle based on the specify crystal size distribution
+<span class="go">filtration_simulator --estimate_particle_number</span>
 </pre></div>
 </div>
 </div>
@@ -174,7 +177,7 @@
 <li>Particle Template and Distribution</li>
 </ul>
 <p>First, please define your specified CSD in CSD/CSD.csv . The size is crystal diameter instead of crystal radius. The crystal size is in the unit of um.</p>
-<p>Second, please enter the following command to estimate the system dimension and collision detection limit. According to the experience, the simulation of a system with 2000 particles will take from several minutes to one hour depending on the size distribution. Please modify the variable definition section of <em>liggghts_configuration.txt</em> according to the program output.</p>
+<p>Second, please enter the following command to estimate the system dimension and collision detection limit. It’s suggested the system contains more than 1000 particles. When the system contains large amount of small particles or CSD is discretized into large number of bins, a larger particle number should be used. The minimum particle number can be estimated using command <code class="code docutils literal notranslate"><span class="pre">filtration_simulator</span> <span class="pre">--estimate_particle_number</span></code>.  According to the experience, the simulation of a system with 2000 particles will take from several minutes to one hour depending on the size distribution. Please modify the variable definition section of <em>liggghts_configuration.txt</em> according to the program output.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">filtration_simulator --estimate_system_dimension particle_number</span>
 </pre></div>
 </div>

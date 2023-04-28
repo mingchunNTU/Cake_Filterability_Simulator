@@ -143,6 +143,32 @@ def CSD_generator(size,volume_fraction):
 	file="CSD/CSD.txt"
 	tmp1=document()
 	tmp1.output_document(output,file)
+
+def non_zero_minimum(input_list):
+	"""
+	Return the non-zero minimum value from the input list
+
+	:param input_list: the list to be processed
+	:type size: list
+	:return: non-zero mimimum value
+	:rtype: float 
+	"""
+	tmp1=input_list
+	tmp2=[]
+	for i in range(len(tmp1)):
+		if tmp1[i]!=0:
+			tmp2.append(tmp1[i])
+	
+	if len(tmp2)==0:
+		print("The CSD is all zero")
+
+	else:
+		output=tmp2[0]
+		for i in range(len(tmp2)):
+			if tmp2[i] < output:
+				output=tmp2[i]
+		return output
+
 		
 
 

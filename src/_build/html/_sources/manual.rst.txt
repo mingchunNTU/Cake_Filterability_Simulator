@@ -2,7 +2,7 @@ Installation
 ================================================
 It is suggested to install the program on a computer with Ubuntu 20.04.6 or newer version. The program is based on the open source DEM software `LIGGGHTS <https://www.cfdem.com/media/DEM/docu/Manual.html>`_. Please install `CFDEM <https://www.cfdem.com/media/CFDEM/docu/CFDEMcoupling_Manual.html>`_, which will help you install and configure LIGGGHTS automatically. After you install CFDEM, please execute the ErgunTestMPI example in tutorials/cfdemSolverPiso/ErgunTestMPI. If the simulation ends successfully, your installlation is complete and parDEMrun command is available. 
 
-Furthermore, the program is written in Python. Please make sure that you install Python 3 including numpy, matplotlib, scipy, csv, copy, datetime and os package on your computer.
+Furthermore, the program is written in Python. Please make sure that you install Python 3 including **numpy, matplotlib, scipy, csv, copy, datetime and os** package on your computer.
 
 To install the program, please install git and clone the source code of the project
 
@@ -20,7 +20,7 @@ Add the following line to your ~/.bashrc file and update ~/.bashrc setting by ty
 
 Program Command
 ==================================================
-The program provides four commands that help generate LIGGGHTS input script and estimate the cake resistance based on the LIGGGHTS simulation result. All the parameters are in SI units.
+The program provides four commands that help generate LIGGGHTS input script and estimate the cake resistance based on the LIGGGHTS simulation result. All the parameters are in SI units. Please substitute the parameters such as *porosity, particle_density or poisson_ratio* with a number with physical meaning **instead of putting the string on the command line directly**, or an error message may occur.  
 
 
 .. code-block:: console
@@ -36,6 +36,9 @@ The program provides four commands that help generate LIGGGHTS input script and 
 	
 	# estimate the Rayleigh time step based on the particle radius and property
 	filtration_simulator --estimate_time_step particle_radius Young's_Modulus poisson_ratio particle_density 
+	
+	# estimate the minimum number of particle based on the specify crystal size distribution 
+	filtration_simulator --estimate_particle_number
 
 File Structure
 ==================================================
@@ -94,7 +97,7 @@ To siumulate the cake structure, there're three parts that should be modified ac
 
 First, please define your specified CSD in CSD/CSD.csv . The size is crystal diameter instead of crystal radius. The crystal size is in the unit of um. 
 
-Second, please enter the following command to estimate the system dimension and collision detection limit. According to the experience, the simulation of a system with 2000 particles will take from several minutes to one hour depending on the size distribution. Please modify the variable definition section of *liggghts_configuration.txt* according to the program output.  
+Second, please enter the following command to estimate the system dimension and collision detection limit. It's suggested the system contains more than 1000 particles. When the system contains large amount of small particles or CSD is discretized into large number of bins, a larger particle number should be used. The minimum particle number can be estimated using command :code:`filtration_simulator --estimate_particle_number`.  According to the experience, the simulation of a system with 2000 particles will take from several minutes to one hour depending on the size distribution. Please modify the variable definition section of *liggghts_configuration.txt* according to the program output.  
 
 .. code-block:: console
 	

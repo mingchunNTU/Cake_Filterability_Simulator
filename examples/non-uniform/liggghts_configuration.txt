@@ -9,22 +9,25 @@
 # geometry parameter
 
 variable DEM_domain_half_width equal 141
-variable DEM_domain_height equal 1411 
+variable DEM_domain_height equal 1411
 variable DEM_domain_depth equal 1129
 
 variable DEM_insertion_half_width equal 141
-variable DEM_insertion_top equal 565 
-variable DEM_insertion_bottom equal 0.0
+variable DEM_insertion_top equal 565
+variable DEM_insertion_bottom equal 0
 
-variable DEM_sample_half_width equal 141 
-variable DEM_sample_top equal 282 
-variable DEM_sample_bottom equal 0.0 
+variable DEM_sample_half_width equal 141
+variable DEM_sample_top equal 282
+variable DEM_sample_bottom equal 0
 
-variable DEM_zwall equal 0.0
+variable DEM_zwall equal 0.00
 
-variable DEM_cutoff equal 50
+variable DEM_cutoff equal 50.00
+
+variable DEM_particle_number equal 2000.00
 
 
+####################################################################################################################
 # particle physical property
 
 variable DEM_density equal 1.18
@@ -38,7 +41,7 @@ variable DEM_cohesionEnergyDensity equal 0
 
 # DEM simulation setting
 
-variable DEM_particle_number equal 2000
+
 variable DEM_particle_velocity equal 0.01
 variable DEM_size_of_time_step equal 0.01
 variable DEM_number_of_time_step equal 1000000 
