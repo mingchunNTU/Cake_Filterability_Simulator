@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>document.py module &mdash; Filtration_Simulator  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <title>document.py module &mdash; Cake_Filterability_Simulator  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="utility.py module" href="utility.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -23,22 +25,45 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Filtration_Simulator
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Cake_Filterability_Simulator
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="manual.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual.html#program-command">Program Command</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual.html#file-structure">File Structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manual.html#parallel-computing">Parallel computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#parallel-computing">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#simulation-of-cake-structure">Simulation of Cake Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#estimation-of-cake-specific-resistance">Estimation of Cake Specific Resistance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Module%20Dictionary.html">Module Dictionary</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="data.html">data.py module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="figure.html">figure.py module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utility.html">utility.py module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">document.py module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#document.document"><code class="docutils literal notranslate"><span class="pre">document</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#document.document.list_to_sentence"><code class="docutils literal notranslate"><span class="pre">document.list_to_sentence()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#document.document.output_document"><code class="docutils literal notranslate"><span class="pre">document.output_document()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#document.document.output_document_modified"><code class="docutils literal notranslate"><span class="pre">document.output_document_modified()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#document.document.read_document"><code class="docutils literal notranslate"><span class="pre">document.read_document()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#document.document.substitute"><code class="docutils literal notranslate"><span class="pre">document.substitute()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -47,14 +72,15 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Filtration_Simulator</a>
+          <a href="index.html">Cake_Filterability_Simulator</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="Module%20Dictionary.html">Module Dictionary</a></li>
       <li class="breadcrumb-item active">document.py module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/document.rst.txt" rel="nofollow"> View page source</a>
@@ -65,92 +91,80 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="module-document">
-<span id="document-py-module"></span><h1>document.py module<a class="headerlink" href="#module-document" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="document.document">
-<em class="property">class </em><code class="descclassname">document.</code><code class="descname">document</code><a class="headerlink" href="#document.document" title="Permalink to this definition">¶</a></dt>
+  <section id="module-document">
+<span id="document-py-module"></span><h1>document.py module<a class="headerlink" href="#module-document" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="document.document">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">document.</span></span><span class="sig-name descname"><span class="pre">document</span></span><a class="headerlink" href="#document.document" title="Permalink to this definition"></a></dt>
 <dd><p>Module related to document manipulation</p>
-<dl class="method">
-<dt id="document.document.list_to_sentence">
-<code class="descname">list_to_sentence</code><span class="sig-paren">(</span><em>string_list</em><span class="sig-paren">)</span><a class="headerlink" href="#document.document.list_to_sentence" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="document.document.list_to_sentence">
+<span class="sig-name descname"><span class="pre">list_to_sentence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#document.document.list_to_sentence" title="Permalink to this definition"></a></dt>
 <dd><p>Comebine the list element into one sentence</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string_list</strong> (<em>string</em>) – list to be combined</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>string_list</strong> (<em>string</em>) – list to be combined</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="document.document.output_document">
-<code class="descname">output_document</code><span class="sig-paren">(</span><em>sentence_list</em>, <em>file</em><span class="sig-paren">)</span><a class="headerlink" href="#document.document.output_document" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="document.document.output_document">
+<span class="sig-name descname"><span class="pre">output_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentence_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#document.document.output_document" title="Permalink to this definition"></a></dt>
 <dd><p>Export a list of sentence as one file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>sentence_list</strong> (<em>list</em>) – list of sentence</li>
-<li><strong>file</strong> (<em>string</em>) – exported file name</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sentence_list</strong> (<em>list</em>) – list of sentence</p></li>
+<li><p><strong>file</strong> (<em>string</em>) – exported file name</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="document.document.output_document_modified">
-<code class="descname">output_document_modified</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="headerlink" href="#document.document.output_document_modified" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="document.document.output_document_modified">
+<span class="sig-name descname"><span class="pre">output_document_modified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#document.document.output_document_modified" title="Permalink to this definition"></a></dt>
 <dd><p>Export the modified document
 :param file: exported file name
 :type file: string</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="document.document.read_document">
-<code class="descname">read_document</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="headerlink" href="#document.document.read_document" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="document.document.read_document">
+<span class="sig-name descname"><span class="pre">read_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#document.document.read_document" title="Permalink to this definition"></a></dt>
 <dd><p>Read the document to be modified</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file</strong> (<em>string</em>) – document file name</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>string</em>) – document file name</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="document.document.substitute">
-<code class="descname">substitute</code><span class="sig-paren">(</span><em>string_old</em>, <em>string_new</em><span class="sig-paren">)</span><a class="headerlink" href="#document.document.substitute" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="document.document.substitute">
+<span class="sig-name descname"><span class="pre">substitute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string_old</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">string_new</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#document.document.substitute" title="Permalink to this definition"></a></dt>
 <dd><p>Substitue the target string in the document with new string</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>string_old</strong> (<em>string</em>) – target string</li>
-<li><strong>string_new</strong> (<em>string</em>) – new string</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string_old</strong> (<em>string</em>) – target string</p></li>
+<li><p><strong>string_new</strong> (<em>string</em>) – new string</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="utility.html" class="btn btn-neutral float-left" title="utility.py module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 

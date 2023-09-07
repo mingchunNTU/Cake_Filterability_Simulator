@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation &mdash; Filtration_Simulator  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <title>Installation &mdash; Cake_Filterability_Simulator  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Module Dictionary" href="Module Dictionary.html" />
-    <link rel="prev" title="Welcome to Filtration_Simulator’s documentation!" href="index.html" /> 
+    <link rel="next" title="Module Dictionary" href="Module%20Dictionary.html" />
+    <link rel="prev" title="Welcome to Cake_Filterability_Simulator’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -26,11 +27,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Filtration_Simulator
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Cake_Filterability_Simulator
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -38,13 +43,12 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#program-command">Program Command</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#file-structure">File Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#important-scripts">Important scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#file-structure-of-the-examples-non-uniform">File Structure of the examples/non-uniform</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#parallel-computing">Parallel Computing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#simulation-of-cake-structure">Simulation of Cake Structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#estimation-of-cake-specific-resistance">Estimation of Cake Specific Resistance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#estimation-of-filter-cake-resistance">Estimation of Filter Cake Resistance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module Dictionary.html">Module Dictionary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module%20Dictionary.html">Module Dictionary</a></li>
 </ul>
 
         </div>
@@ -53,14 +57,14 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Filtration_Simulator</a>
+          <a href="index.html">Cake_Filterability_Simulator</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Installation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/manual.rst.txt" rel="nofollow"> View page source</a>
@@ -71,148 +75,119 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>It is suggested to install the program on a computer with Ubuntu 20.04.6 or newer version. The program is based on the open source DEM software <a class="reference external" href="https://www.cfdem.com/media/DEM/docu/Manual.html">LIGGGHTS</a>. Please install <a class="reference external" href="https://www.cfdem.com/media/CFDEM/docu/CFDEMcoupling_Manual.html">CFDEM</a>, which will help you install and configure LIGGGHTS automatically. After you install CFDEM, please execute the ErgunTestMPI example in tutorials/cfdemSolverPiso/ErgunTestMPI. If the simulation ends successfully, your installlation is complete and parDEMrun command is available.</p>
-<p>Furthermore, the program is written in Python. Please make sure that you install Python 3 including <strong>numpy, matplotlib, scipy, csv, copy, datetime and os</strong> package on your computer.</p>
-<p>To install the program, please install git and clone the source code of the project</p>
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
+<p>This project estimates the filter cake resistance with specified crystal size distribution (CSD) using discrete element method and Kozeny-Carman equation.
+This project is composed of two parts. First part is a LIGGGHTS template to simulate the filter cake structure with specified CSD.
+Second part are several useful python scripts that facilitate the simulation.</p>
+<p>To execute the python scritps, please make sure that you install Python 3 including <strong>numpy, matplotlib, scipy, csv, copy, datetime and os</strong> package on your computer.
+The python script can be executed directly with a python core. To execute the LIGGGHTS template, it’s needed to install <a class="reference external" href="https://www.cfdem.com/media/DEM/docu/Manual.html">LIGGGHTS</a>. on the computer.
+Please install <a class="reference external" href="https://www.cfdem.com/media/CFDEM/docu/CFDEMcoupling_Manual.html">CFDEM</a>, which will help you install and configure LIGGGHTS automatically.
+After you install CFDEM, please execute the ErgunTestMPI example in tutorials/cfdemSolverPiso/ErgunTestMPI. If the simulation ends successfully, your installlation is complete and parDEMrun command is available.
+It is suggested to install CFDEM on a computer with Ubuntu 20.04.6 or newer version.</p>
+<p>To download the project, please install git and clone the source code of the project</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ~</span>
 <span class="go">sudo apt-get install git</span>
-<span class="go">git clone https://github.com/mingchunNTU/Filtration_Simulator.git</span>
+<span class="go">git clone https://github.com/mingchunNTU/Cake_Filterability_Simulator.git</span>
 </pre></div>
 </div>
-<p>Add the following line to your ~/.bashrc file and update ~/.bashrc setting by typing <code class="code docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/.bashrc</span></code>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source $HOME/Filtration_Simulator/src/etc/bashrc</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="program-command">
-<h1>Program Command<a class="headerlink" href="#program-command" title="Permalink to this headline">¶</a></h1>
-<p>The program provides four commands that help generate LIGGGHTS input script and estimate the cake resistance based on the LIGGGHTS simulation result. All the parameters are in SI units. Please substitute the parameters such as <em>porosity, particle_density or poisson_ratio</em> with a number with physical meaning <strong>instead of putting the string on the command line directly</strong>, or an error message may occur.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> estimate the cake resistance according the the speficied crystal size distribution and crystal property
-<span class="go">filtration_simulator --estimate_resistance porosity particle_density</span>
-
-<span class="gp">#</span> estimate the DEM system dimension parameters according to the specified crystal size distribution
-<span class="go">filtration_simulator --estimate_system_dimension particle_number</span>
-
-<span class="gp">#</span> generate the particle template section of LIGGGHTS input script with specified crystal size distribution
-<span class="go">filtration_simulator --CSD_script_generator</span>
-
-<span class="gp">#</span> estimate the Rayleigh <span class="nb">time</span> step based on the particle radius and property
-<span class="go">filtration_simulator --estimate_time_step particle_radius Young&#39;s_Modulus poisson_ratio particle_density</span>
-
-<span class="gp">#</span> estimate the minimum number of particle based on the specify crystal size distribution
-<span class="go">filtration_simulator --estimate_particle_number</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="file-structure">
-<h1>File Structure<a class="headerlink" href="#file-structure" title="Permalink to this headline">¶</a></h1>
-<p>To construct the cake structure with specified crystal size distriubtion, you need to modify the files in examples/non-uniform. The description of the files in the non-uniform directory is shown below. To execute the program, please enter <code class="code docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/Allrun.sh</span></code> in the terminal.</p>
-<ul>
-<li><p class="first">Allrun.sh: Execution script of the example</p>
-</li>
-<li><p class="first">liggghts_configuration.txt: LIGGGHTS configuration files, which you should modify according to your specified crystal size distribution</p>
-</li>
-<li><p class="first">CSD</p>
-<blockquote>
-<div><ul class="simple">
-<li>CSD.csv: Your specified CSD</li>
-<li>CSD.txt: Generated text file that contains the particle template according to specified CSD</li>
+</section>
+<section id="important-scripts">
+<h1>Important scripts<a class="headerlink" href="#important-scripts" title="Permalink to this heading"></a></h1>
+<p>There’re several useful python scripts in src directory, which help edit LIGGGHTS template and visualize the simulation result.
+The explaination of each script is shown below. There’s a section that defines exlain adjustable parameters in the beginning of each script.
+Most scripts require specified crystal size distriubtion as input.
+Please define the directory that contains specified CSD using the parameter setting_dir in each script.</p>
+<ul class="simple">
+<li><p>scr/CSD_DEM_report.py: Generate a report based on the specified CSD which helps the user to edit the LIGGGHTS template</p></li>
+<li><p>src/estimate_cake_resistance.py: Estimate the filter cake resistance based on specified CSD and simulated cake porosity</p></li>
+<li><p>src/plot_CSD.py: Plot the specified CSD on a number or volume basis</p></li>
+<li><p>src/plot_porosity_trajectory.py: Plot the porosity trajectory in the sampling region, which is useful to check if the cake structure is stable or not</p></li>
 </ul>
-</div></blockquote>
-</li>
-<li><dl class="first docutils">
-<dt>script</dt>
-<dd><ul class="first last simple">
-<li>python script: Contains python module for postProcessing.sh</li>
-<li>clean_case.sh: Remove the previous simulation result (<strong>dependent script of Allrun.sh</strong>)</li>
-<li>edit_filtration_simulator_main.sh: Open the main program of Filtration_simulator using vim. The script help you modify main program according to your need</li>
-<li>paraview.sh: Change the directory to Result/vtk_file and open paraview program for the post processing. Please make sure that you install paraview.</li>
-<li>parDEMrun.sh: execute parDEMrun command for LIGGGHTS simulation (<strong>dependent script of Allrun.sh</strong>)</li>
-<li>postProcessing.sh: plot the relationship between number of iteration and cake porosity (<strong>dependent script of Allrun.sh</strong>)</li>
+</section>
+<section id="file-structure-of-the-examples-non-uniform">
+<h1>File Structure of the examples/non-uniform<a class="headerlink" href="#file-structure-of-the-examples-non-uniform" title="Permalink to this heading"></a></h1>
+<p>A LIGGGHTS template is provided in examples/non-uniform directory, which should be edited according to the specified CSD and users’ need.
+The description of the files in the non-uniform directory is shown below. To execute LIGGGHTS simulation, please enter <code class="code docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/Allrun.sh</span></code> in the terminal.</p>
+<ul class="simple">
+<li><p>Allrun.sh: Execution script of the example</p></li>
+<li><p>liggghts_configuration.txt: LIGGGHTS template, which should be modified according to specified crystal size distribution</p></li>
+<li><p>CSD.csv: Your specified CSD</p></li>
+<li><p>CSD_DEM_report.txt: The report generated by CSD_DEM_report.py. This files contain system dimension section and particle template section needed for liggghts_configuration.txt.</p></li>
+<li><dl class="simple">
+<dt>script</dt><dd><ul>
+<li><p>python script: Contains python module for postProcessing.sh</p></li>
+<li><p>clean_case.sh: Remove the previous simulation result (<strong>dependent script of Allrun.sh</strong>)</p></li>
+<li><p>paraview.sh: Change the directory to Result/vtk_file and open paraview program for the post processing. Please make sure that you install paraview.</p></li>
+<li><p>parDEMrun.sh: Execute parDEMrun command for LIGGGHTS simulation (<strong>dependent script of Allrun.sh</strong>)</p></li>
+<li><p>postProcessing.sh: Transform the LIGGGHTS simulation result into readable format for plot_porosity_trajectory.py (<strong>dependent script of Allrun.sh</strong>)</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>Result</dt>
-<dd><ul class="first last simple">
-<li>DEM_porosity.csv: simulated cake porosity</li>
-<li>vtk_file: vtk files of LIGGGHTS simulation, which can be visuallized using software paraview</li>
+<li><dl class="simple">
+<dt>Result</dt><dd><ul>
+<li><p>DEM_porosity.csv: Simulated cake porosity trajectory</p></li>
+<li><p>vtk_file: vtk files of LIGGGHTS simulation, which can be visuallized using software paraview</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="parallel-computing">
-<h1>Parallel Computing<a class="headerlink" href="#parallel-computing" title="Permalink to this headline">¶</a></h1>
-<p>LIGGGHTS supports parallel computing, which uses several cpus simultaneously to perform the simulation. To check the available number of processors in your computer, please type the following commands through command line.</p>
+</section>
+<section id="parallel-computing">
+<h1>Parallel Computing<a class="headerlink" href="#parallel-computing" title="Permalink to this heading"></a></h1>
+<p>LIGGGHTS supports parallel computing, which uses several cpus simultaneously to perform the simulation.
+To check the available number of processors in your computer, please type the following commands through command line.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat /proc/cpuinfo | grep &quot;^cpu cores&quot; | uniq</span>
 </pre></div>
 </div>
 <p>To change the number of cpu used in the simulation, please edit the <em>nrProcs</em> parameter in script/parDEMrun.sh .</p>
-</div>
-<div class="section" id="simulation-of-cake-structure">
-<h1>Simulation of Cake Structure<a class="headerlink" href="#simulation-of-cake-structure" title="Permalink to this headline">¶</a></h1>
-<p>The script that defines DEM simulation setting is  <em>liggghts_configuration.txt</em>. The unit used in liggghts_configuration.txt* is <strong>not SI unit</strong>. It is found that if <em>SI</em> unit is used, the numerical value of particle volume will become too small and a numerical problem will happen during LIGGGHTS simulation. Thus, <em>micro</em> unit is used for LIGGGHTS simulation. The conversion factor between <em>SI</em> unit and <em>micro</em> unit is shown below.</p>
+</section>
+<section id="estimation-of-filter-cake-resistance">
+<h1>Estimation of Filter Cake Resistance<a class="headerlink" href="#estimation-of-filter-cake-resistance" title="Permalink to this heading"></a></h1>
+<p>The unit used in <em>liggghts_configuration.txt</em> is <strong>not SI unit</strong>.
+It is found that if <em>SI</em> unit is used, the numerical value of particle volume will become too small and a numerical problem will happen.
+Thus, <em>micro</em> unit is used for LIGGGHTS simulation. The conversion factor between <em>SI</em> unit and <em>micro</em> unit is shown below.</p>
 <ul class="simple">
-<li>Length: <span class="math notranslate nohighlight">\(1\ \mu m=10^{-6}\ m\)</span></li>
-<li>Time: <span class="math notranslate nohighlight">\(1\ \mu s=10^{-6}\ s\)</span></li>
-<li>Mass: <span class="math notranslate nohighlight">\(1\ pg=10^{-15}\ kg\)</span></li>
-<li>Velocity: <span class="math notranslate nohighlight">\(1\ \mu m/ \mu s=1\ m/s\)</span></li>
-<li>Gravity: <span class="math notranslate nohighlight">\(1\ \mu m/{\mu s^2}=10^{6}\ m/s^2\)</span></li>
-<li>Density: <span class="math notranslate nohighlight">\(1\ pg/{\mu m^3}=10^{3}\ kg/m^3\)</span></li>
-<li>Pressure (Youngs’s Modulus): <span class="math notranslate nohighlight">\(1\ pg/(\mu m  \cdot \mu s^2)=10^{3}\ kg/(m \cdot s^2)\)</span></li>
-<li>Cohesion Energy Density: <span class="math notranslate nohighlight">\(1\ pg/(\mu m  \cdot \mu s^2)=10^{3}\ kg/(m \cdot s^2)\)</span></li>
-<li>Dynamic Viscosity: <span class="math notranslate nohighlight">\(1\ pg/(\mu m \cdot \mu s)=10^{-3}\ kg/(m \cdot s)\)</span></li>
-<li>Kinematic Viscosity: <span class="math notranslate nohighlight">\(1\ {\mu m^2}/{\mu s}=10^{-6}\ m^2/s\)</span></li>
-<li>Filter Cake Resistance: <span class="math notranslate nohighlight">\(1\ {\mu m}/pg=10^{9}\ m/kg\)</span></li>
+<li><p>Length: <span class="math notranslate nohighlight">\(1\ \mu m=10^{-6}\ m\)</span></p></li>
+<li><p>Time: <span class="math notranslate nohighlight">\(1\ \mu s=10^{-6}\ s\)</span></p></li>
+<li><p>Mass: <span class="math notranslate nohighlight">\(1\ pg=10^{-15}\ kg\)</span></p></li>
+<li><p>Velocity: <span class="math notranslate nohighlight">\(1\ \mu m/ \mu s=1\ m/s\)</span></p></li>
+<li><p>Gravity: <span class="math notranslate nohighlight">\(1\ \mu m/{\mu s^2}=10^{6}\ m/s^2\)</span></p></li>
+<li><p>Density: <span class="math notranslate nohighlight">\(1\ pg/{\mu m^3}=10^{3}\ kg/m^3\)</span></p></li>
+<li><p>Pressure (Youngs’s Modulus): <span class="math notranslate nohighlight">\(1\ pg/(\mu m  \cdot \mu s^2)=10^{3}\ kg/(m \cdot s^2)\)</span></p></li>
+<li><p>Cohesion Energy Density: <span class="math notranslate nohighlight">\(1\ pg/(\mu m  \cdot \mu s^2)=10^{3}\ kg/(m \cdot s^2)\)</span></p></li>
+<li><p>Dynamic Viscosity: <span class="math notranslate nohighlight">\(1\ pg/(\mu m \cdot \mu s)=10^{-3}\ kg/(m \cdot s)\)</span></p></li>
+<li><p>Kinematic Viscosity: <span class="math notranslate nohighlight">\(1\ {\mu m^2}/{\mu s}=10^{-6}\ m^2/s\)</span></p></li>
+<li><p>Filter Cake Resistance: <span class="math notranslate nohighlight">\(1\ {\mu m}/pg=10^{9}\ m/kg\)</span></p></li>
 </ul>
-<p>To siumulate the cake structure, there’re three parts that should be modified according to your specified CSD</p>
+<p>To simulate the filter cake structure, please specify CSD in CSD.csv and change the parameter setting_dir in each python script to fit your environment.
+The size is crystal diameter instead of crystal radius. The crystal size is in the unit of um.
+Then, execute src/CSD_DEM_report.py, which will generate <em>CSD_DEM_report.txt</em> in the same directory as CSD.csv.
+Please replace the system dimension section and particle template section in <em>liggghts_configuration.txt</em> with the corresponding section in <em>CSD_DEM_report.txt</em>
+Furthermore, please make sure the DEM parameters used do not violate the constraint mentioned in “DEM Report for Specified CSD” section in <em>CSD_DEM_report.txt</em>
+After configuring <em>liggghts_configuration.txt</em>, please enter <code class="code docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/Allrun.sh</span></code> in the terminal to execute the program.
+After the simulation complete, the calculated porosity will be stored in <em>Result/DEM_porosity.csv</em>. The vtk files of the simulation is stored in <em>Result/vtk_file</em>.
+The default time step is 0.01 us, which is 25% of Rayleigh time step when the particle diameter is 1 um.
+If the crystal is much larger than 1 um, a larger time step can be used, and the number of time step can be reduced.</p>
+<p>After LIGGGHTS simulation, please use estimate_cake_resistance.py to estimate the filter cake resistance. The porosity is calculated by previous LIGGGHTS simulation.</p>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>
 <ul class="simple">
-<li>System Dimension</li>
-<li>Collision Detection Limit</li>
-<li>Particle Template and Distribution</li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
-<p>First, please define your specified CSD in CSD/CSD.csv . The size is crystal diameter instead of crystal radius. The crystal size is in the unit of um.</p>
-<p>Second, please enter the following command to estimate the system dimension and collision detection limit. It’s suggested the system contains more than 1000 particles. When the system contains large amount of small particles or CSD is discretized into large number of bins, a larger particle number should be used. The minimum particle number can be estimated using command <code class="code docutils literal notranslate"><span class="pre">filtration_simulator</span> <span class="pre">--estimate_particle_number</span></code>.  According to the experience, the simulation of a system with 2000 particles will take from several minutes to one hour depending on the size distribution. Please modify the variable definition section of <em>liggghts_configuration.txt</em> according to the program output.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">filtration_simulator --estimate_system_dimension particle_number</span>
-</pre></div>
-</div>
-<p>Third, please enter the following command to generate the particle template. <em>CSD/CSD.txt</em> contains particle template information. Please copy and paste the <em>CSD.txt</em> content into particle template section of <em>liggghts_configuration.txt</em>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">filtration_simulator --CSD_script_generator</span>
-</pre></div>
-</div>
-<p>After configuring <em>liggghts_configuration.txt</em>, please enter <code class="code docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/Allrun.sh</span></code> in the terminal to execute the program. After the simulation complete, the calculated porosity will be stored in <em>Result/DEM_porosity.csv</em>. The vtk files of the simulation is stored in <em>Result/vtk_file</em>.</p>
-<p>The default time step is 0.01 us, which is 25% of Rayleigh time step when the particle diameter is 1 um. If the crystal is much larger than 1 um, a larger time step can be used, and the number of time step can be reduced. To estimate the Rayleigh time step, please enter the following command</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">filtration_simulator --estimate_time_step particle_radius Young&#39;s_Modulus poisson_ratio particle_density</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="estimation-of-cake-specific-resistance">
-<h1>Estimation of Cake Specific Resistance<a class="headerlink" href="#estimation-of-cake-specific-resistance" title="Permalink to this headline">¶</a></h1>
-<p>After DEM simulation, please enter the following command to estimate the cake specific resistance. The porosity is calculated by previous DEM simulation.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">filtration_simulator --estimate_resistance porosity particle_density</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
-</ul>
-</div>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Filtration_Simulator’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Module Dictionary.html" class="btn btn-neutral float-right" title="Module Dictionary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Cake_Filterability_Simulator’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Module%20Dictionary.html" class="btn btn-neutral float-right" title="Module Dictionary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

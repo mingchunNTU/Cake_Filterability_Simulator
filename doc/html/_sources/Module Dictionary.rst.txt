@@ -6,5 +6,4 @@ Module Dictionary
 	data
 	figure
 	utility
-	document 
 

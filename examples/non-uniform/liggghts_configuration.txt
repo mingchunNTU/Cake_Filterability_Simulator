@@ -1,11 +1,11 @@
-# Simple Filter Simulation
+# Simple Filter Cake Structure Simulation
 
 
 
 # Setting the varialbe for the simulation
 
 
-########################################## variable definition section############################################
+#################################### System Geometry Section #####################################################
 # geometry parameter
 
 variable DEM_domain_half_width equal 141
@@ -27,13 +27,13 @@ variable DEM_cutoff equal 50.00
 variable DEM_particle_number equal 2000.00
 
 
-####################################################################################################################
+############################## Particle Properties and DEM parameters #############################################
 # particle physical property
 
 variable DEM_density equal 1.18
 variable DEM_youngsModulus equal 5000
 variable DEM_poissonRatio equal 0.2 
-variable DEM_coefficientRestitution equal 0.3 
+variable DEM_coefficientRestitution equal 0 
 variable DEM_coefficientFriction equal 0.5 
 variable DEM_k_finnie equal 1 
 variable DEM_cohesionEnergyDensity equal 0
@@ -86,12 +86,14 @@ region bc block -${DEM_insertion_half_width} ${DEM_insertion_half_width} -${DEM_
 fix granwalls all wall/gran model hertz tangential history cohesion sjkr primitive type 1 zplane ${DEM_zwall}
 
 
-########################################### particle template section########################################################
+########################################### Particle Template Section ########################################################
+
 # define the size distribution of the particle
 fix pts1 all particletemplate/sphere 10007 atom_type 1 density constant ${DEM_density} radius constant 10.0 
 fix pts2 all particletemplate/sphere 10009 atom_type 1 density constant ${DEM_density} radius constant 25.0 
 fix pdd all particledistribution/discrete/massbased 32452843 2 pts1 0.5 pts2 0.5 
-#############################################################################################################################
+
+##############################################################################################################################
 
 # define the insertion condition
 group nve_group region domain 
