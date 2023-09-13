@@ -7,7 +7,7 @@ setting_dir="../examples/non-uniform/"
 
 # DEM parameter used
 settling_velocity=0.01 # m/s
-time_step=0.01 # us
+time_step=0.1 # us
 particle_number=2000
 
 # particle property used

@@ -3,7 +3,7 @@
 Minimum number of particle required with specified CSD: 17
 Maximum time step for specified CSD and particle property: 0.8223431583083093 (us)
 Suggested system dimension: 282 (um)
-Minimum number of step for specified system dimension and settling velocity: 705000
+Minimum number of step for specified system dimension and settling velocity: 70500
 Minimum detection limit: 50.0 (um)
 
 #######################################################################

@@ -30,7 +30,7 @@ variable DEM_particle_number equal 2000
 
 variable DEM_density equal 1.18
 variable DEM_youngsModulus equal 5000
-variable DEM_poissonRatio equal 0.2 
+variable DEM_poissonRatio equal 0.2
 variable DEM_coefficientRestitution equal 0.3
 variable DEM_coefficientFriction equal 0 
 variable DEM_k_finnie equal 1 
@@ -41,8 +41,8 @@ variable DEM_cohesionEnergyDensity equal 50
 
 
 variable DEM_particle_velocity equal 0.01
-variable DEM_size_of_time_step equal 0.01
-variable DEM_number_of_time_step equal 1000000 
+variable DEM_size_of_time_step equal 0.1
+variable DEM_number_of_time_step equal 150000 
 
 
 variable DEM_thermo_step equal 1000 
