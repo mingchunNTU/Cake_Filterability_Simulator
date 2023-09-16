@@ -5,7 +5,7 @@ from figure import *
 ##################################################
 
 setting_dir="../examples/non-uniform/"
-type="number" # number or volume
+type="volume" # number or volume
 
 ##################################################
 

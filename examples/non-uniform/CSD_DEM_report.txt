@@ -1,29 +1,29 @@
 ################## DEM Report for Specified CSD #######################
 
-Minimum number of particle required with specified CSD: 17
-Maximum time step for specified CSD and particle property: 0.8223431583083093 (us)
-Suggested system dimension: 282 (um)
-Minimum number of step for specified system dimension and settling velocity: 70500
-Minimum detection limit: 50.0 (um)
+Minimum number of particle required with specified CSD: 69140
+Maximum time step for specified CSD and particle property: 1.7511832908707816 (us)
+Suggested system dimension: 1905 (um)
+Minimum number of step for specified system dimension and settling velocity: 476250
+Minimum detection limit: 693.9678716 (um)
 
 #######################################################################
  
 ################## System Geometry Section #######################
 
-variable DEM_domain_half_width equal 141
-variable DEM_domain_height equal 1410
-variable DEM_domain_depth equal 1128
+variable DEM_domain_half_width equal 952
+variable DEM_domain_height equal 9525
+variable DEM_domain_depth equal 7620
 
-variable DEM_insertion_half_width equal 141
-variable DEM_insertion_top equal 564
+variable DEM_insertion_half_width equal 952
+variable DEM_insertion_top equal 3810
 variable DEM_insertion_bottom equal 0
 
-variable DEM_sample_half_width equal 141
-variable DEM_sample_top equal 282
+variable DEM_sample_half_width equal 952
+variable DEM_sample_top equal 1905
 variable DEM_sample_bottom equal 0
 
 variable DEM_zwall equal 0.00
-variable DEM_cutoff equal 50.00
+variable DEM_cutoff equal 693.97
 variable DEM_particle_number equal 2000
 
 
@@ -31,11 +31,269 @@ variable DEM_particle_number equal 2000
  
 ################## Particle Template Section #######################
 
-fix pts1 all particletemplate/sphere 10007 atom_type 1 density constant ${DEM_density} radius constant 10.0 
+fix pts1 all particletemplate/sphere 10007 atom_type 1 density constant ${DEM_density} radius constant 21.29504299 
 
-fix pts2 all particletemplate/sphere 10009 atom_type 1 density constant ${DEM_density} radius constant 25.0 
+fix pts2 all particletemplate/sphere 10009 atom_type 1 density constant ${DEM_density} radius constant 23.800342165 
 
-fix pdd all particledistribution/discrete/massbased 32452843 2 pts1 0.5 pts2 0.5 
+fix pts3 all particletemplate/sphere 10037 atom_type 1 density constant ${DEM_density} radius constant 26.30564134 
+
+fix pts4 all particletemplate/sphere 10039 atom_type 1 density constant ${DEM_density} radius constant 28.810940515 
+
+fix pts5 all particletemplate/sphere 10061 atom_type 1 density constant ${DEM_density} radius constant 31.31623969 
+
+fix pts6 all particletemplate/sphere 10067 atom_type 1 density constant ${DEM_density} radius constant 33.82153887 
+
+fix pts7 all particletemplate/sphere 10069 atom_type 1 density constant ${DEM_density} radius constant 36.326838045 
+
+fix pts8 all particletemplate/sphere 10079 atom_type 1 density constant ${DEM_density} radius constant 38.83213722 
+
+fix pts9 all particletemplate/sphere 10091 atom_type 1 density constant ${DEM_density} radius constant 41.337436395 
+
+fix pts10 all particletemplate/sphere 10093 atom_type 1 density constant ${DEM_density} radius constant 43.84273557 
+
+fix pts11 all particletemplate/sphere 10099 atom_type 1 density constant ${DEM_density} radius constant 46.348034745 
+
+fix pts12 all particletemplate/sphere 10103 atom_type 1 density constant ${DEM_density} radius constant 48.85333392 
+
+fix pts13 all particletemplate/sphere 10111 atom_type 1 density constant ${DEM_density} radius constant 51.3586331 
+
+fix pts14 all particletemplate/sphere 10133 atom_type 1 density constant ${DEM_density} radius constant 53.86393225 
+
+fix pts15 all particletemplate/sphere 10139 atom_type 1 density constant ${DEM_density} radius constant 56.36923145 
+
+fix pts16 all particletemplate/sphere 10141 atom_type 1 density constant ${DEM_density} radius constant 58.8745306 
+
+fix pts17 all particletemplate/sphere 10151 atom_type 1 density constant ${DEM_density} radius constant 61.3798298 
+
+fix pts18 all particletemplate/sphere 10159 atom_type 1 density constant ${DEM_density} radius constant 63.88512895 
+
+fix pts19 all particletemplate/sphere 10163 atom_type 1 density constant ${DEM_density} radius constant 66.39042815 
+
+fix pts20 all particletemplate/sphere 10169 atom_type 1 density constant ${DEM_density} radius constant 68.8957273 
+
+fix pts21 all particletemplate/sphere 10177 atom_type 1 density constant ${DEM_density} radius constant 71.4010265 
+
+fix pts22 all particletemplate/sphere 10181 atom_type 1 density constant ${DEM_density} radius constant 73.90632565 
+
+fix pts23 all particletemplate/sphere 10193 atom_type 1 density constant ${DEM_density} radius constant 76.41162485 
+
+fix pts24 all particletemplate/sphere 10211 atom_type 1 density constant ${DEM_density} radius constant 78.916924 
+
+fix pts25 all particletemplate/sphere 10223 atom_type 1 density constant ${DEM_density} radius constant 81.4222232 
+
+fix pts26 all particletemplate/sphere 10243 atom_type 1 density constant ${DEM_density} radius constant 83.9275224 
+
+fix pts27 all particletemplate/sphere 10247 atom_type 1 density constant ${DEM_density} radius constant 86.43282155 
+
+fix pts28 all particletemplate/sphere 10253 atom_type 1 density constant ${DEM_density} radius constant 88.93812075 
+
+fix pts29 all particletemplate/sphere 10259 atom_type 1 density constant ${DEM_density} radius constant 91.4434199 
+
+fix pts30 all particletemplate/sphere 10267 atom_type 1 density constant ${DEM_density} radius constant 93.9487191 
+
+fix pts31 all particletemplate/sphere 10271 atom_type 1 density constant ${DEM_density} radius constant 96.45401825 
+
+fix pts32 all particletemplate/sphere 10273 atom_type 1 density constant ${DEM_density} radius constant 98.95931745 
+
+fix pts33 all particletemplate/sphere 10289 atom_type 1 density constant ${DEM_density} radius constant 101.4646166 
+
+fix pts34 all particletemplate/sphere 10301 atom_type 1 density constant ${DEM_density} radius constant 103.9699158 
+
+fix pts35 all particletemplate/sphere 10303 atom_type 1 density constant ${DEM_density} radius constant 106.47521495 
+
+fix pts36 all particletemplate/sphere 10313 atom_type 1 density constant ${DEM_density} radius constant 108.98051415 
+
+fix pts37 all particletemplate/sphere 10321 atom_type 1 density constant ${DEM_density} radius constant 111.4858133 
+
+fix pts38 all particletemplate/sphere 10331 atom_type 1 density constant ${DEM_density} radius constant 113.9911125 
+
+fix pts39 all particletemplate/sphere 10333 atom_type 1 density constant ${DEM_density} radius constant 116.49641165 
+
+fix pts40 all particletemplate/sphere 10337 atom_type 1 density constant ${DEM_density} radius constant 119.00171085 
+
+fix pts41 all particletemplate/sphere 10343 atom_type 1 density constant ${DEM_density} radius constant 121.50701 
+
+fix pts42 all particletemplate/sphere 10357 atom_type 1 density constant ${DEM_density} radius constant 124.0123092 
+
+fix pts43 all particletemplate/sphere 10369 atom_type 1 density constant ${DEM_density} radius constant 126.51760835 
+
+fix pts44 all particletemplate/sphere 10391 atom_type 1 density constant ${DEM_density} radius constant 129.02290755 
+
+fix pts45 all particletemplate/sphere 10399 atom_type 1 density constant ${DEM_density} radius constant 131.5282067 
+
+fix pts46 all particletemplate/sphere 10427 atom_type 1 density constant ${DEM_density} radius constant 134.0335059 
+
+fix pts47 all particletemplate/sphere 10429 atom_type 1 density constant ${DEM_density} radius constant 136.53880505 
+
+fix pts48 all particletemplate/sphere 10433 atom_type 1 density constant ${DEM_density} radius constant 139.04410425 
+
+fix pts49 all particletemplate/sphere 10453 atom_type 1 density constant ${DEM_density} radius constant 141.5494034 
+
+fix pts50 all particletemplate/sphere 10457 atom_type 1 density constant ${DEM_density} radius constant 144.0547026 
+
+fix pts51 all particletemplate/sphere 10459 atom_type 1 density constant ${DEM_density} radius constant 146.56000175 
+
+fix pts52 all particletemplate/sphere 10463 atom_type 1 density constant ${DEM_density} radius constant 149.06530095 
+
+fix pts53 all particletemplate/sphere 10477 atom_type 1 density constant ${DEM_density} radius constant 151.5706001 
+
+fix pts54 all particletemplate/sphere 10487 atom_type 1 density constant ${DEM_density} radius constant 154.0758993 
+
+fix pts55 all particletemplate/sphere 10499 atom_type 1 density constant ${DEM_density} radius constant 156.58119845 
+
+fix pts56 all particletemplate/sphere 10501 atom_type 1 density constant ${DEM_density} radius constant 159.08649765 
+
+fix pts57 all particletemplate/sphere 10513 atom_type 1 density constant ${DEM_density} radius constant 161.5917968 
+
+fix pts58 all particletemplate/sphere 10529 atom_type 1 density constant ${DEM_density} radius constant 164.097096 
+
+fix pts59 all particletemplate/sphere 10531 atom_type 1 density constant ${DEM_density} radius constant 166.60239515 
+
+fix pts60 all particletemplate/sphere 10559 atom_type 1 density constant ${DEM_density} radius constant 169.10769435 
+
+fix pts61 all particletemplate/sphere 10567 atom_type 1 density constant ${DEM_density} radius constant 171.6129935 
+
+fix pts62 all particletemplate/sphere 10589 atom_type 1 density constant ${DEM_density} radius constant 174.1182927 
+
+fix pts63 all particletemplate/sphere 10597 atom_type 1 density constant ${DEM_density} radius constant 176.62359185 
+
+fix pts64 all particletemplate/sphere 10601 atom_type 1 density constant ${DEM_density} radius constant 179.12889105 
+
+fix pts65 all particletemplate/sphere 10607 atom_type 1 density constant ${DEM_density} radius constant 181.6341902 
+
+fix pts66 all particletemplate/sphere 10613 atom_type 1 density constant ${DEM_density} radius constant 184.1394894 
+
+fix pts67 all particletemplate/sphere 10627 atom_type 1 density constant ${DEM_density} radius constant 186.64478855 
+
+fix pts68 all particletemplate/sphere 10631 atom_type 1 density constant ${DEM_density} radius constant 189.15008775 
+
+fix pts69 all particletemplate/sphere 10639 atom_type 1 density constant ${DEM_density} radius constant 191.6553869 
+
+fix pts70 all particletemplate/sphere 10651 atom_type 1 density constant ${DEM_density} radius constant 194.1606861 
+
+fix pts71 all particletemplate/sphere 10657 atom_type 1 density constant ${DEM_density} radius constant 196.66598525 
+
+fix pts72 all particletemplate/sphere 10663 atom_type 1 density constant ${DEM_density} radius constant 199.17128445 
+
+fix pts73 all particletemplate/sphere 10667 atom_type 1 density constant ${DEM_density} radius constant 201.6765836 
+
+fix pts74 all particletemplate/sphere 10687 atom_type 1 density constant ${DEM_density} radius constant 204.1818828 
+
+fix pts75 all particletemplate/sphere 10691 atom_type 1 density constant ${DEM_density} radius constant 206.68718195 
+
+fix pts76 all particletemplate/sphere 10709 atom_type 1 density constant ${DEM_density} radius constant 209.19248115 
+
+fix pts77 all particletemplate/sphere 10711 atom_type 1 density constant ${DEM_density} radius constant 211.6977803 
+
+fix pts78 all particletemplate/sphere 10723 atom_type 1 density constant ${DEM_density} radius constant 214.2030795 
+
+fix pts79 all particletemplate/sphere 10729 atom_type 1 density constant ${DEM_density} radius constant 216.70837865 
+
+fix pts80 all particletemplate/sphere 10733 atom_type 1 density constant ${DEM_density} radius constant 219.21367785 
+
+fix pts81 all particletemplate/sphere 10739 atom_type 1 density constant ${DEM_density} radius constant 221.718977 
+
+fix pts82 all particletemplate/sphere 10753 atom_type 1 density constant ${DEM_density} radius constant 224.2242762 
+
+fix pts83 all particletemplate/sphere 10771 atom_type 1 density constant ${DEM_density} radius constant 226.72957535 
+
+fix pts84 all particletemplate/sphere 10781 atom_type 1 density constant ${DEM_density} radius constant 229.23487455 
+
+fix pts85 all particletemplate/sphere 10789 atom_type 1 density constant ${DEM_density} radius constant 231.7401737 
+
+fix pts86 all particletemplate/sphere 10799 atom_type 1 density constant ${DEM_density} radius constant 234.2454729 
+
+fix pts87 all particletemplate/sphere 10831 atom_type 1 density constant ${DEM_density} radius constant 236.75077205 
+
+fix pts88 all particletemplate/sphere 10837 atom_type 1 density constant ${DEM_density} radius constant 239.25607125 
+
+fix pts89 all particletemplate/sphere 10847 atom_type 1 density constant ${DEM_density} radius constant 241.7613704 
+
+fix pts90 all particletemplate/sphere 10853 atom_type 1 density constant ${DEM_density} radius constant 244.2666696 
+
+fix pts91 all particletemplate/sphere 10859 atom_type 1 density constant ${DEM_density} radius constant 246.77196875 
+
+fix pts92 all particletemplate/sphere 10861 atom_type 1 density constant ${DEM_density} radius constant 249.27726795 
+
+fix pts93 all particletemplate/sphere 10867 atom_type 1 density constant ${DEM_density} radius constant 251.78256715 
+
+fix pts94 all particletemplate/sphere 10883 atom_type 1 density constant ${DEM_density} radius constant 254.2878663 
+
+fix pts95 all particletemplate/sphere 10889 atom_type 1 density constant ${DEM_density} radius constant 256.7931655 
+
+fix pts96 all particletemplate/sphere 10891 atom_type 1 density constant ${DEM_density} radius constant 259.29846465 
+
+fix pts97 all particletemplate/sphere 10903 atom_type 1 density constant ${DEM_density} radius constant 261.80376385 
+
+fix pts98 all particletemplate/sphere 10909 atom_type 1 density constant ${DEM_density} radius constant 264.309063 
+
+fix pts99 all particletemplate/sphere 10937 atom_type 1 density constant ${DEM_density} radius constant 266.8143622 
+
+fix pts100 all particletemplate/sphere 10939 atom_type 1 density constant ${DEM_density} radius constant 269.31966135 
+
+fix pts101 all particletemplate/sphere 10949 atom_type 1 density constant ${DEM_density} radius constant 271.82496055 
+
+fix pts102 all particletemplate/sphere 10957 atom_type 1 density constant ${DEM_density} radius constant 274.3302597 
+
+fix pts103 all particletemplate/sphere 10973 atom_type 1 density constant ${DEM_density} radius constant 276.8355589 
+
+fix pts104 all particletemplate/sphere 10979 atom_type 1 density constant ${DEM_density} radius constant 279.34085805 
+
+fix pts105 all particletemplate/sphere 10987 atom_type 1 density constant ${DEM_density} radius constant 281.84615725 
+
+fix pts106 all particletemplate/sphere 10993 atom_type 1 density constant ${DEM_density} radius constant 284.3514564 
+
+fix pts107 all particletemplate/sphere 11003 atom_type 1 density constant ${DEM_density} radius constant 286.8567556 
+
+fix pts108 all particletemplate/sphere 11027 atom_type 1 density constant ${DEM_density} radius constant 289.36205475 
+
+fix pts109 all particletemplate/sphere 11047 atom_type 1 density constant ${DEM_density} radius constant 291.86735395 
+
+fix pts110 all particletemplate/sphere 11057 atom_type 1 density constant ${DEM_density} radius constant 294.3726531 
+
+fix pts111 all particletemplate/sphere 11059 atom_type 1 density constant ${DEM_density} radius constant 296.8779523 
+
+fix pts112 all particletemplate/sphere 11069 atom_type 1 density constant ${DEM_density} radius constant 299.38325145 
+
+fix pts113 all particletemplate/sphere 11071 atom_type 1 density constant ${DEM_density} radius constant 301.88855065 
+
+fix pts114 all particletemplate/sphere 11083 atom_type 1 density constant ${DEM_density} radius constant 304.3938498 
+
+fix pts115 all particletemplate/sphere 11087 atom_type 1 density constant ${DEM_density} radius constant 306.899149 
+
+fix pts116 all particletemplate/sphere 11093 atom_type 1 density constant ${DEM_density} radius constant 309.40444815 
+
+fix pts117 all particletemplate/sphere 11113 atom_type 1 density constant ${DEM_density} radius constant 311.90974735 
+
+fix pts118 all particletemplate/sphere 11117 atom_type 1 density constant ${DEM_density} radius constant 314.4150465 
+
+fix pts119 all particletemplate/sphere 11119 atom_type 1 density constant ${DEM_density} radius constant 316.9203457 
+
+fix pts120 all particletemplate/sphere 11131 atom_type 1 density constant ${DEM_density} radius constant 319.42564485 
+
+fix pts121 all particletemplate/sphere 11149 atom_type 1 density constant ${DEM_density} radius constant 321.93094405 
+
+fix pts122 all particletemplate/sphere 11159 atom_type 1 density constant ${DEM_density} radius constant 324.4362432 
+
+fix pts123 all particletemplate/sphere 11161 atom_type 1 density constant ${DEM_density} radius constant 326.9415424 
+
+fix pts124 all particletemplate/sphere 11171 atom_type 1 density constant ${DEM_density} radius constant 329.44684155 
+
+fix pts125 all particletemplate/sphere 11173 atom_type 1 density constant ${DEM_density} radius constant 331.95214075 
+
+fix pts126 all particletemplate/sphere 11177 atom_type 1 density constant ${DEM_density} radius constant 334.4574399 
+
+fix pts127 all particletemplate/sphere 11197 atom_type 1 density constant ${DEM_density} radius constant 336.9627391 
+
+fix pts128 all particletemplate/sphere 11213 atom_type 1 density constant ${DEM_density} radius constant 339.46803825 
+
+fix pts129 all particletemplate/sphere 11239 atom_type 1 density constant ${DEM_density} radius constant 341.97333745 
+
+fix pts130 all particletemplate/sphere 11243 atom_type 1 density constant ${DEM_density} radius constant 344.4786366 
+
+fix pts131 all particletemplate/sphere 11251 atom_type 1 density constant ${DEM_density} radius constant 346.9839358 
+
+fix pdd all particledistribution/discrete/massbased 32452843 131 pts1 0.001017392 pts2 0.001331814 pts3 0.001686093 pts4 0.002077057 pts5 0.002501071 pts6 0.00295419 pts7 0.003432277 pts8 0.003931104 pts9 0.004446439 pts10 0.004974115 pts11 0.005510081 pts12 0.006050451 pts13 0.006591536 pts14 0.007129869 pts15 0.007662224 pts16 0.008185628 pts17 0.008697367 pts18 0.009194989 pts19 0.009676302 pts20 0.010139371 pts21 0.010582509 pts22 0.01100427 pts23 0.011403439 pts24 0.011779018 pts25 0.012130219 pts26 0.012456445 pts27 0.01275728 pts28 0.013032478 pts29 0.013281945 pts30 0.013505728 pts31 0.013704005 pts32 0.013877069 pts33 0.014025316 pts34 0.014149236 pts35 0.014249402 pts36 0.014326455 pts37 0.014381101 pts38 0.014414096 pts39 0.014426242 pts40 0.014418375 pts41 0.01439136 pts42 0.014346083 pts43 0.014283446 pts44 0.01420436 pts45 0.014109741 pts46 0.014000502 pts47 0.013877553 pts48 0.013741795 pts49 0.013594116 pts50 0.01343539 pts51 0.013266473 pts52 0.0130882 pts53 0.012901383 pts54 0.012706812 pts55 0.012505252 pts56 0.01229744 pts57 0.012084086 pts58 0.011865873 pts59 0.011643454 pts60 0.011417456 pts61 0.011188475 pts62 0.010957077 pts63 0.010723802 pts64 0.010489159 pts65 0.010253631 pts66 0.010017672 pts67 0.009781709 pts68 0.009546142 pts69 0.009311347 pts70 0.009077671 pts71 0.008845439 pts72 0.008614954 pts73 0.008386492 pts74 0.00816031 pts75 0.007936642 pts76 0.007715703 pts77 0.007497687 pts78 0.007282771 pts79 0.007071113 pts80 0.006862854 pts81 0.006658119 pts82 0.006457017 pts83 0.006259645 pts84 0.006066084 pts85 0.005876401 pts86 0.005690654 pts87 0.005508888 pts88 0.005331136 pts89 0.005157422 pts90 0.004987762 pts91 0.004822161 pts92 0.004660616 pts93 0.004503119 pts94 0.004349652 pts95 0.004200192 pts96 0.004054709 pts97 0.003913169 pts98 0.003775533 pts99 0.003641756 pts100 0.00351179 pts101 0.003385583 pts102 0.00326308 pts103 0.003144223 pts104 0.003028951 pts105 0.002917201 pts106 0.002808908 pts107 0.002704005 pts108 0.002602424 pts109 0.002504097 pts110 0.002408951 pts111 0.002316918 pts112 0.002227924 pts113 0.002141899 pts114 0.00205877 pts115 0.001978465 pts116 0.001900912 pts117 0.00182604 pts118 0.001753778 pts119 0.001684055 pts120 0.0016168 pts121 0.001551945 pts122 0.00148942 pts123 0.001429159 pts124 0.001371095 pts125 0.001315161 pts126 0.001261294 pts127 0.001209429 pts128 0.001159505 pts129 0.00111146 pts130 0.001065234 pts131 0.001020769 
 
 
 #######################################################################

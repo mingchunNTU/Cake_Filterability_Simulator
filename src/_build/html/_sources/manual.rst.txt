@@ -29,6 +29,7 @@ Please define the directory that contains specified CSD using the parameter sett
 * src/estimate_cake_resistance.py: Estimate the filter cake resistance based on specified CSD and simulated cake porosity
 * src/plot_CSD.py: Plot the specified CSD on a number or volume basis
 * src/plot_porosity_trajectory.py: Plot the porosity trajectory in the sampling region, which is useful to check if the cake structure is stable or not
+* src/CSD_filter.py: Remove the particle template whose volume fraction is smaller than the specified lower bound 
 
 File Structure of the examples/non-uniform
 ================================================
