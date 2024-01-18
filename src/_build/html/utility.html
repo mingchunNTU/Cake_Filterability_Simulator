@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>utility.py module &mdash; Cake_Filterability_Simulator  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <title>utility.py module &mdash; Cake_Filterability_Simulator  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -25,15 +25,11 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            Cake_Filterability_Simulator
+            <a href="index.html" class="icon icon-home"> Cake_Filterability_Simulator
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -41,26 +37,15 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="manual.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#important-scripts">Important scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#file-structure-of-the-examples-non-uniform">File Structure of the examples/non-uniform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#parallel-computing">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#estimation-of-filter-cake-resistance">Estimation of Filter Cake Resistance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual.html#indices-and-tables">Indices and tables</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="Module%20Dictionary.html">Module Dictionary</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Module Dictionary.html">Module Dictionary</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="data.html">data.py module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="figure.html">figure.py module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">utility.py module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#utility.NF_to_VF"><code class="docutils literal notranslate"><span class="pre">NF_to_VF()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#utility.VF_to_NF"><code class="docutils literal notranslate"><span class="pre">VF_to_NF()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#utility.estimate_Rayleigh_time_step"><code class="docutils literal notranslate"><span class="pre">estimate_Rayleigh_time_step()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#utility.estimate_cake_resistance"><code class="docutils literal notranslate"><span class="pre">estimate_cake_resistance()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#utility.estimate_number_of_step"><code class="docutils literal notranslate"><span class="pre">estimate_number_of_step()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#utility.estimate_particle_number"><code class="docutils literal notranslate"><span class="pre">estimate_particle_number()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#utility.estimate_system_dimension"><code class="docutils literal notranslate"><span class="pre">estimate_system_dimension()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#utility.generate_particle_template"><code class="docutils literal notranslate"><span class="pre">generate_particle_template()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#utility.get_maximum_size"><code class="docutils literal notranslate"><span class="pre">get_maximum_size()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#utility.get_minimum_fraction"><code class="docutils literal notranslate"><span class="pre">get_minimum_fraction()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#utility.get_minimun_size"><code class="docutils literal notranslate"><span class="pre">get_minimun_size()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#utility.output_list"><code class="docutils literal notranslate"><span class="pre">output_list()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#utility.print_list"><code class="docutils literal notranslate"><span class="pre">print_list()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">utility.py module</a></li>
 </ul>
 </li>
 </ul>
@@ -78,8 +63,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="Module%20Dictionary.html">Module Dictionary</a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="Module Dictionary.html">Module Dictionary</a></li>
       <li class="breadcrumb-item active">utility.py module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/utility.rst.txt" rel="nofollow"> View page source</a>
@@ -90,253 +75,308 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-utility">
-<span id="utility-py-module"></span><h1>utility.py module<a class="headerlink" href="#module-utility" title="Permalink to this heading"></a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="utility.NF_to_VF">
-<span class="sig-prename descclassname"><span class="pre">utility.</span></span><span class="sig-name descname"><span class="pre">NF_to_VF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_fraction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utility.NF_to_VF" title="Permalink to this definition"></a></dt>
+  <div class="section" id="module-utility">
+<span id="utility-py-module"></span><h1>utility.py module<a class="headerlink" href="#module-utility" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="utility.NF_to_VF">
+<code class="descclassname">utility.</code><code class="descname">NF_to_VF</code><span class="sig-paren">(</span><em>size</em>, <em>number_fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.NF_to_VF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform the number fraction to volume fraction</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>size</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – size (um)</p></li>
-<li><p><strong>number_fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – number fraction (-)</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – size (um)</li>
+<li><strong>number_fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – number fraction (-)</li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>size and volume fraction</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="data.html#data.variable" title="data.variable">variable</a></p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">size and volume fraction</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="data.html#data.variable" title="data.variable">variable</a></p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="utility.VF_to_NF">
-<span class="sig-prename descclassname"><span class="pre">utility.</span></span><span class="sig-name descname"><span class="pre">VF_to_NF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volume_fraction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utility.VF_to_NF" title="Permalink to this definition"></a></dt>
+<dl class="function">
+<dt id="utility.VF_to_NF">
+<code class="descclassname">utility.</code><code class="descname">VF_to_NF</code><span class="sig-paren">(</span><em>size</em>, <em>volume_fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.VF_to_NF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform the number fraction to volume fraction</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>size</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – size (um)</p></li>
-<li><p><strong>volume_fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – size (um)</li>
+<li><strong>volume_fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>size and number fraction</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="data.html#data.variable" title="data.variable">variable</a></p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">size and number fraction</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="data.html#data.variable" title="data.variable">variable</a></p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="utility.estimate_Rayleigh_time_step">
-<span class="sig-prename descclassname"><span class="pre">utility.</span></span><span class="sig-name descname"><span class="pre">estimate_Rayleigh_time_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Young_Modulus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poisson_ratio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">particle_density</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utility.estimate_Rayleigh_time_step" title="Permalink to this definition"></a></dt>
+<dl class="function">
+<dt id="utility.estimate_Rayleigh_time_step">
+<code class="descclassname">utility.</code><code class="descname">estimate_Rayleigh_time_step</code><span class="sig-paren">(</span><em>size</em>, <em>fraction</em>, <em>Young_Modulus</em>, <em>poisson_ratio</em>, <em>particle_density</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.estimate_Rayleigh_time_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimate Rayleigh time step based on the smallest particle size and particle property</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>size</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – crystal size (um)</p></li>
-<li><p><strong>fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</p></li>
-<li><p><strong>Young_Modulus</strong> (<em>float</em>) – Young’s modulus (Pa)</p></li>
-<li><p><strong>poisson_ratio</strong> (<em>float</em>) – Poisson ratio (-)</p></li>
-<li><p><strong>particle_density</strong> (<em>float</em>) – particle density (kg/m^3)</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – crystal size (um)</li>
+<li><strong>fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</li>
+<li><strong>Young_Modulus</strong> (<em>float</em>) – Young’s modulus (Pa)</li>
+<li><strong>poisson_ratio</strong> (<em>float</em>) – Poisson ratio (-)</li>
+<li><strong>particle_density</strong> (<em>float</em>) – particle density (kg/m^3)</li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Rayleigh time step (us)</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Rayleigh time step (us)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="utility.estimate_cake_resistance">
-<span class="sig-prename descclassname"><span class="pre">utility.</span></span><span class="sig-name descname"><span class="pre">estimate_cake_resistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volume_fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cake_porosity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sphericity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crystal_density</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utility.estimate_cake_resistance" title="Permalink to this definition"></a></dt>
+<dl class="function">
+<dt id="utility.estimate_cake_resistance">
+<code class="descclassname">utility.</code><code class="descname">estimate_cake_resistance</code><span class="sig-paren">(</span><em>size</em>, <em>volume_fraction</em>, <em>cake_porosity</em>, <em>sphericity</em>, <em>crystal_density</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.estimate_cake_resistance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimate the cake resistance based on the size distribution and cake porosity of the cake</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>size</strong> (<em>float</em>) – crystal size (um)</p></li>
-<li><p><strong>volume_fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</p></li>
-<li><p><strong>cake_porosity</strong> (<em>float</em>) – cake porosity (-)</p></li>
-<li><p><strong>sphericity</strong> (<em>float</em>) – sphericity of the crystal (-)</p></li>
-<li><p><strong>crystal_density</strong> – crystal density (kg/m^3)</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> (<em>float</em>) – crystal size (um)</li>
+<li><strong>volume_fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</li>
+<li><strong>cake_porosity</strong> (<em>float</em>) – cake porosity (-)</li>
+<li><strong>sphericity</strong> (<em>float</em>) – sphericity of the crystal (-)</li>
+<li><strong>crystal_density</strong> – crystal density (kg/m^3)</li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>cake resistance (m/kg)</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">cake resistance (m/kg)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="utility.estimate_number_of_step">
-<span class="sig-prename descclassname"><span class="pre">utility.</span></span><span class="sig-name descname"><span class="pre">estimate_number_of_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_step</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settling_velocity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">system_dimension</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utility.estimate_number_of_step" title="Permalink to this definition"></a></dt>
+<dl class="function">
+<dt id="utility.estimate_number_of_step">
+<code class="descclassname">utility.</code><code class="descname">estimate_number_of_step</code><span class="sig-paren">(</span><em>time_step</em>, <em>settling_velocity</em>, <em>system_dimension</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.estimate_number_of_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimate the minimum number of step for the cake to be stable</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>time_step</strong> – time step used (um)</p></li>
-<li><p><strong>settling_velocity</strong> – settling velocity of the particle (um/us)</p></li>
-<li><p><strong>system_dimension</strong> – system dimension</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>time_step</strong> – time step used (um)</li>
+<li><strong>settling_velocity</strong> – settling velocity of the particle (um/us)</li>
+<li><strong>system_dimension</strong> – system dimension</li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>number of step</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">number of step</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="utility.estimate_particle_number">
-<span class="sig-prename descclassname"><span class="pre">utility.</span></span><span class="sig-name descname"><span class="pre">estimate_particle_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utility.estimate_particle_number" title="Permalink to this definition"></a></dt>
+<dl class="function">
+<dt id="utility.estimate_particle_number">
+<code class="descclassname">utility.</code><code class="descname">estimate_particle_number</code><span class="sig-paren">(</span><em>size</em>, <em>fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.estimate_particle_number" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimate the minimun particle number required for specified CSD</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>size</strong> – particle size (um)</p></li>
-<li><p><strong>fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> – particle size (um)</li>
+<li><strong>fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</li>
 </ul>
-</dd>
-<dt class="field-even">Type<span class="colon">:</span></dt>
-<dd class="field-even"><p>size: variable</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>required minimum particle number</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body"><p class="first">size: variable</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">required minimum particle number</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="utility.estimate_system_dimension">
-<span class="sig-prename descclassname"><span class="pre">utility.</span></span><span class="sig-name descname"><span class="pre">estimate_system_dimension</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volume_fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">particle_number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utility.estimate_system_dimension" title="Permalink to this definition"></a></dt>
+<dl class="function">
+<dt id="utility.estimate_system_dimension">
+<code class="descclassname">utility.</code><code class="descname">estimate_system_dimension</code><span class="sig-paren">(</span><em>size</em>, <em>volume_fraction</em>, <em>particle_number</em>, <em>inital_void_fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.estimate_system_dimension" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimate the required system dimension to accommodate the specified particle number</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>size</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – crystal size (um)</p></li>
-<li><p><strong>volume_fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</p></li>
-<li><p><strong>particle_number</strong> (<em>float</em>) – target particle number (-)</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – crystal size (um)</li>
+<li><strong>volume_fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</li>
+<li><strong>particle_number</strong> (<em>float</em>) – target particle number (-)</li>
+<li><strong>initial_void_fraction</strong> (<em>float</em>) – initial void fraction of insertion region</li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>system dimension (um)</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">system dimension (um)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">system dimension (um)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="utility.generate_particle_template">
-<span class="sig-prename descclassname"><span class="pre">utility.</span></span><span class="sig-name descname"><span class="pre">generate_particle_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utility.generate_particle_template" title="Permalink to this definition"></a></dt>
+<dl class="function">
+<dt id="utility.generate_particle_template">
+<code class="descclassname">utility.</code><code class="descname">generate_particle_template</code><span class="sig-paren">(</span><em>size</em>, <em>fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.generate_particle_template" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate particle template section for specified CSD</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>size</strong> – particle size (um)</p></li>
-<li><p><strong>fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> – particle size (um)</li>
+<li><strong>fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</li>
 </ul>
-</dd>
-<dt class="field-even">Type<span class="colon">:</span></dt>
-<dd class="field-even"><p>size: variable</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>contents of particle template with specified CSD</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body"><p class="first">size: variable</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">contents of particle template with specified CSD</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="utility.get_maximum_size">
-<span class="sig-prename descclassname"><span class="pre">utility.</span></span><span class="sig-name descname"><span class="pre">get_maximum_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utility.get_maximum_size" title="Permalink to this definition"></a></dt>
+<dl class="function">
+<dt id="utility.get_maximum_size">
+<code class="descclassname">utility.</code><code class="descname">get_maximum_size</code><span class="sig-paren">(</span><em>size</em>, <em>fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.get_maximum_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimate the maximum particle size of specified CSD</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>size</strong> – particle size (um)</p></li>
-<li><p><strong>fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> – particle size (um)</li>
+<li><strong>fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</li>
 </ul>
-</dd>
-<dt class="field-even">Type<span class="colon">:</span></dt>
-<dd class="field-even"><p>size: variable</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>minimum size (um)</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body"><p class="first">size: variable</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">minimum size (um)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="utility.get_minimum_fraction">
-<span class="sig-prename descclassname"><span class="pre">utility.</span></span><span class="sig-name descname"><span class="pre">get_minimum_fraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utility.get_minimum_fraction" title="Permalink to this definition"></a></dt>
+<dl class="function">
+<dt id="utility.get_minimum_fraction">
+<code class="descclassname">utility.</code><code class="descname">get_minimum_fraction</code><span class="sig-paren">(</span><em>size</em>, <em>fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.get_minimum_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimate the minimun number fraction of specified CSD</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>size</strong> – particle size (um)</p></li>
-<li><p><strong>fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> – particle size (um)</li>
+<li><strong>fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</li>
 </ul>
-</dd>
-<dt class="field-even">Type<span class="colon">:</span></dt>
-<dd class="field-even"><p>size: variable</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>size with minimum number fraction and minimum number fraction</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body"><p class="first">size: variable</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">size with minimum number fraction and minimum number fraction</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="utility.get_minimun_size">
-<span class="sig-prename descclassname"><span class="pre">utility.</span></span><span class="sig-name descname"><span class="pre">get_minimun_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utility.get_minimun_size" title="Permalink to this definition"></a></dt>
+<dl class="function">
+<dt id="utility.get_minimun_size">
+<code class="descclassname">utility.</code><code class="descname">get_minimun_size</code><span class="sig-paren">(</span><em>size</em>, <em>fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.get_minimun_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimate the minimun particle size of specified CSD</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>size</strong> – particle size (um)</p></li>
-<li><p><strong>fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size</strong> – particle size (um)</li>
+<li><strong>fraction</strong> (<a class="reference internal" href="data.html#data.variable" title="data.variable"><em>variable</em></a>) – volume fraction (-)</li>
 </ul>
-</dd>
-<dt class="field-even">Type<span class="colon">:</span></dt>
-<dd class="field-even"><p>size: variable</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>minimum size (um)</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body"><p class="first">size: variable</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">minimum size (um)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="utility.output_list">
-<span class="sig-prename descclassname"><span class="pre">utility.</span></span><span class="sig-name descname"><span class="pre">output_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utility.output_list" title="Permalink to this definition"></a></dt>
+<dl class="function">
+<dt id="utility.output_list">
+<code class="descclassname">utility.</code><code class="descname">output_list</code><span class="sig-paren">(</span><em>string_list</em>, <em>file</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.output_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Export a list of string as one file</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>string_list</strong> (<em>list</em>) – list of string</p></li>
-<li><p><strong>file</strong> (<em>string</em>) – output file name</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>string_list</strong> (<em>list</em>) – list of string</li>
+<li><strong>file</strong> (<em>string</em>) – output file name</li>
 </ul>
-</dd>
-</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="utility.print_list">
-<span class="sig-prename descclassname"><span class="pre">utility.</span></span><span class="sig-name descname"><span class="pre">print_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utility.print_list" title="Permalink to this definition"></a></dt>
+<dl class="function">
+<dt id="utility.print_list">
+<code class="descclassname">utility.</code><code class="descname">print_list</code><span class="sig-paren">(</span><em>string_list</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.print_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display the content of a string list</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>string_lsit</strong> – list of string</p>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string_lsit</strong> – list of string</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-</section>
+</div>
 
 
            </div>

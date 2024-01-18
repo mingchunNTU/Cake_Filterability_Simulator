@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module Dictionary &mdash; Cake_Filterability_Simulator  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <title>Module Dictionary &mdash; Cake_Filterability_Simulator  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -26,15 +26,11 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            Cake_Filterability_Simulator
+            <a href="index.html" class="icon icon-home"> Cake_Filterability_Simulator
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -42,6 +38,10 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="manual.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#important-scripts">Important scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#file-structure-of-the-examples-non-uniform">File Structure of the examples/non-uniform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#parallel-computing">Parallel Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual.html#estimation-of-filter-cake-resistance">Estimation of Filter Cake Resistance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manual.html#indices-and-tables">Indices and tables</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Module Dictionary</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="data.html">data.py module</a></li>
@@ -64,7 +64,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">Module Dictionary</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Module Dictionary.rst.txt" rel="nofollow"> View page source</a>
@@ -75,56 +75,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-dictionary">
-<h1>Module Dictionary<a class="headerlink" href="#module-dictionary" title="Permalink to this heading"></a></h1>
+  <div class="section" id="module-dictionary">
+<h1>Module Dictionary<a class="headerlink" href="#module-dictionary" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data.html">data.py module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="data.html#data.csv_input"><code class="docutils literal notranslate"><span class="pre">csv_input()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="data.html#data.csv_output"><code class="docutils literal notranslate"><span class="pre">csv_output()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="data.html#data.get_variable"><code class="docutils literal notranslate"><span class="pre">get_variable()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="data.html#data.parameter_read"><code class="docutils literal notranslate"><span class="pre">parameter_read()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="data.html#data.string_float_transform"><code class="docutils literal notranslate"><span class="pre">string_float_transform()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="data.html#data.variable"><code class="docutils literal notranslate"><span class="pre">variable</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="data.html#data.variable_output"><code class="docutils literal notranslate"><span class="pre">variable_output()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="data.html#data.variable_read"><code class="docutils literal notranslate"><span class="pre">variable_read()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="data.html#data.variable_time"><code class="docutils literal notranslate"><span class="pre">variable_time</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="data.html#data.variable_time.set_time"><code class="docutils literal notranslate"><span class="pre">variable_time.set_time()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="data.html#data.variable_time.summary"><code class="docutils literal notranslate"><span class="pre">variable_time.summary()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="data.html#data.variable_time_read"><code class="docutils literal notranslate"><span class="pre">variable_time_read()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="figure.html">figure.py module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="figure.html#figure.plot_validation"><code class="docutils literal notranslate"><span class="pre">plot_validation()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="figure.html#figure.plot_variable"><code class="docutils literal notranslate"><span class="pre">plot_variable()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="figure.html#figure.plot_variable_II"><code class="docutils literal notranslate"><span class="pre">plot_variable_II()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="figure.html#figure.plot_variable_legend"><code class="docutils literal notranslate"><span class="pre">plot_variable_legend()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="figure.html#figure.plot_variable_time"><code class="docutils literal notranslate"><span class="pre">plot_variable_time()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="figure.html#figure.plot_variable_time_legend"><code class="docutils literal notranslate"><span class="pre">plot_variable_time_legend()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="figure.html#figure.twin_plot"><code class="docutils literal notranslate"><span class="pre">twin_plot()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="utility.html">utility.py module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="utility.html#utility.NF_to_VF"><code class="docutils literal notranslate"><span class="pre">NF_to_VF()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="utility.html#utility.VF_to_NF"><code class="docutils literal notranslate"><span class="pre">VF_to_NF()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="utility.html#utility.estimate_Rayleigh_time_step"><code class="docutils literal notranslate"><span class="pre">estimate_Rayleigh_time_step()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="utility.html#utility.estimate_cake_resistance"><code class="docutils literal notranslate"><span class="pre">estimate_cake_resistance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="utility.html#utility.estimate_number_of_step"><code class="docutils literal notranslate"><span class="pre">estimate_number_of_step()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="utility.html#utility.estimate_particle_number"><code class="docutils literal notranslate"><span class="pre">estimate_particle_number()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="utility.html#utility.estimate_system_dimension"><code class="docutils literal notranslate"><span class="pre">estimate_system_dimension()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="utility.html#utility.generate_particle_template"><code class="docutils literal notranslate"><span class="pre">generate_particle_template()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="utility.html#utility.get_maximum_size"><code class="docutils literal notranslate"><span class="pre">get_maximum_size()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="utility.html#utility.get_minimum_fraction"><code class="docutils literal notranslate"><span class="pre">get_minimum_fraction()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="utility.html#utility.get_minimun_size"><code class="docutils literal notranslate"><span class="pre">get_minimun_size()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="utility.html#utility.output_list"><code class="docutils literal notranslate"><span class="pre">output_list()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="utility.html#utility.print_list"><code class="docutils literal notranslate"><span class="pre">print_list()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">data.py module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="figure.html">figure.py module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utility.html">utility.py module</a></li>
 </ul>
 </div>
-</section>
+</div>
 
 
            </div>

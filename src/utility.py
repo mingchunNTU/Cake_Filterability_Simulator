@@ -160,7 +160,7 @@ def VF_to_NF(size,volume_fraction):
 
     return size,number_fraction
 
-def estimate_system_dimension(size,volume_fraction,particle_number):
+def estimate_system_dimension(size,volume_fraction,particle_number,inital_void_fraction):
     """
     Estimate the required system dimension to accommodate the specified particle number
 
@@ -171,6 +171,9 @@ def estimate_system_dimension(size,volume_fraction,particle_number):
     :param particle_number: target particle number (-)
     :type particle_number: float
     :return: system dimension (um)
+    :param initial_void_fraction: initial void fraction of insertion region
+    :type initial_void_fraction: float
+    :return: system dimension (um)
 
     """
 	
@@ -180,10 +183,9 @@ def estimate_system_dimension(size,volume_fraction,particle_number):
     for i in range(len(size2.value)):
         tmp1=3.1416/6*size2.value[i]**3*number_fraction.value[i]*particle_number
         particle_volume=particle_volume+tmp1
-    
-    estimate_porosity=0.3
-    system_volume=particle_volume/(1-estimate_porosity)
-    system_dimension=int(system_volume**(1/3))
+    particle_volume_fraction=1-inital_void_fraction
+    system_volume=particle_volume/particle_volume_fraction
+    system_dimension=int((system_volume/2)**(1/3))
     
     return system_dimension
 
@@ -248,7 +250,7 @@ def generate_particle_template(size,fraction):
 
 	# generate the particle template
     for i in range(len(size.value)):
-        line="fix pts"+str(i+1)+" all particletemplate/sphere "+str(prime_table[i][0])+" atom_type 1 density constant ${DEM_density} radius constant "+str(size.value[i]/2)+" \n"
+        line="fix pts"+str(i+1)+" all particletemplate/sphere "+str(prime_table[i][0])+" atom_type 1 density constant ${DEM_density} radius constant "+str(size.value[len(size.value)-1-i]/2)+" \n"
         output.append(line)
 
 	# generate the particle distribution

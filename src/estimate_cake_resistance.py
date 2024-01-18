@@ -7,9 +7,9 @@ from figure import *
 
 setting_dir="../examples/non-uniform/"
 
-cake_porosity=0.445 # calculated by DEM simulation
+cake_porosity=0.5 # calculated by DEM simulation
 sphericity=1
-crystal_density=1180 # kg/m3
+crystal_density=2000 # kg/m3
 
 ############################################
 
