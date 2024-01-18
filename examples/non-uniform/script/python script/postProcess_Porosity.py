@@ -11,8 +11,8 @@ for i in range(10):
 	else:
 		tmp1.pop(0)
 
-tmp2=["number of iteration","porosity of sampling region","number of particles in the sampling region"]
-tmp3=["-","-","-"]
+tmp2=["number of iteration","porosity of sampling region","number of particles in the sampling region","number of particles in the domain"]
+tmp3=["-","-","-","-"]
 tmp1.insert(0,tmp3)
 tmp1.insert(0,tmp2)
 
@@ -33,8 +33,10 @@ csv_output(tmp1,file)
 
 # plot_variable(x,y,xlabel,ylabel,title,xlim,ylim,form)
 
-# output the final porosity
+# output the final porosity and particle ratio in sampling region
 file="Result/DEM_porosity.csv"
 tmp1=variable_read(file)
 text="The final cake porosity="+"{:.3f}".format(tmp1[1].value[-1])
+print(text)
+text="Np in sample region/Np in domain="+"{:.0f}".format(tmp1[2].value[-1])+"/"+"{:.0f}".format(tmp1[3].value[-1])
 print(text)

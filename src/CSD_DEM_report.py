@@ -9,7 +9,8 @@ setting_dir="../examples/non-uniform/"
 settling_velocity=0.01 # m/s
 time_step=0.1 # us
 particle_number=2000
-initial_void_fraction=0.65
+initial_void_fraction=0.65 # initial void fraction of insertion region
+h=1 # the height of sampling region equals to h*system dimension
 
 # particle property used
 Young_Modulus=5e6 # Pa
@@ -45,8 +46,6 @@ str1="Suggested system dimension: "+str(system_dimension)+" (um)"
 output.append(str1)
 str1="Suggested number of step: "+str(number_of_step)
 output.append(str1)
-str1="Minimum cake porosity: "+str(min_porosity)
-output.append(str1)
 output.append("")
 output.append("#######################################################################")
 output.append(" ")
@@ -72,7 +71,7 @@ output.append("")
 
 str1="variable DEM_sample_half_width equal "+"{:.0f}".format(system_dimension/2)
 output.append(str1)
-str1="variable DEM_sample_top equal "+"{:.0f}".format(system_dimension)
+str1="variable DEM_sample_top equal "+"{:.0f}".format(system_dimension*h)
 output.append(str1)
 str1="variable DEM_sample_bottom equal "+"{:.0f}".format(0)
 output.append(str1)

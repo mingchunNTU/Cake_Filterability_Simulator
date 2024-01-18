@@ -43,10 +43,11 @@ def get_minimun_size(size,fraction):
 
     """
     index=0
+    minimum=size.value[0]
     for i in range(len(fraction.value)):
-        if fraction.value[i]!=0:
+        if fraction.value[i]!=0 and size.value[i]<minimum:
             index=i
-            break
+            minimum=size.value[i]
     
     return size.value[index]
 
@@ -62,12 +63,12 @@ def get_maximum_size(size,fraction):
 
     """
     
-    length=len(fraction.value)
-    index=length-1
+    index=0
+    maximum=size.value[0]
     for i in range(len(fraction.value)):
-        if fraction.value[length-i-1]!=0:
-            index=length-i-1
-            break
+        if fraction.value[i]!=0 and size.value[i]>maximum:
+            index=i
+            maximum=size.value[i]
     
     return size.value[index]
 
@@ -256,7 +257,7 @@ def generate_particle_template(size,fraction):
 	# generate the particle distribution
     line="fix pdd all particledistribution/discrete/massbased 32452843 "+str(len(size.value))
     for i in range(len(fraction.value)):
-        line=line+" pts"+str(i+1)+" "+str(fraction.value[i])
+        line=line+" pts"+str(i+1)+" "+str(fraction.value[len(fraction.value)-1-i])
     line=line+" \n"
     output.append(line)
     return output

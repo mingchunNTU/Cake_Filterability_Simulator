@@ -1,25 +1,24 @@
 ################## DEM Report for Specified CSD #######################
 
-Minimum number of particle: 17
+Minimum number of particle: 7
 Maximum time step: 0.8223431583083093 (us)
-Suggested system dimension: 282 (um)
-Suggested number of step: 70500
-Minimum cake porosity: 0.30000000000000004
+Suggested system dimension: 342 (um)
+Suggested number of step: 85500
 
 #######################################################################
  
 ################## System Geometry Section #######################
 
-variable DEM_domain_half_width equal 141
-variable DEM_domain_height equal 1410
-variable DEM_domain_depth equal 1128
+variable DEM_domain_half_width equal 171
+variable DEM_domain_height equal 1710
+variable DEM_domain_depth equal 1368
 
-variable DEM_insertion_half_width equal 141
-variable DEM_insertion_top equal 564
+variable DEM_insertion_half_width equal 171
+variable DEM_insertion_top equal 684
 variable DEM_insertion_bottom equal 0
 
-variable DEM_sample_half_width equal 141
-variable DEM_sample_top equal 282
+variable DEM_sample_half_width equal 171
+variable DEM_sample_top equal 342
 variable DEM_sample_bottom equal 0
 
 variable DEM_zwall equal 0.00
@@ -34,7 +33,7 @@ fix pts1 all particletemplate/sphere 10007 atom_type 1 density constant ${DEM_de
 
 fix pts2 all particletemplate/sphere 10009 atom_type 1 density constant ${DEM_density} radius constant 10.0 
 
-fix pdd all particledistribution/discrete/massbased 32452843 2 pts1 0.5 pts2 0.5 
+fix pdd all particledistribution/discrete/massbased 32452843 2 pts1 0.75 pts2 0.25 
 
 
 #######################################################################
