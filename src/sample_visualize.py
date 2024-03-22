@@ -2,12 +2,13 @@ import os
 
 
 #######################################################
-setting_dir="../examples/non-uniform/"
+# setting_dir="../examples/non-uniform/"
+setting_dir="../examples/non-uniform/restart/"
 
 
 sample_width= 171
-sample_height= 500
-iteration= 150000
+sample_height= 400
+iteration= 160000
 time_step= 10000
 
 #######################################################

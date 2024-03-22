@@ -161,7 +161,7 @@ def VF_to_NF(size,volume_fraction):
 
     return size,number_fraction
 
-def estimate_system_dimension(size,volume_fraction,particle_number,inital_void_fraction):
+def estimate_system_dimension(size,volume_fraction,particle_number,inital_void_fraction,insertion_height):
     """
     Estimate the required system dimension to accommodate the specified particle number
 
@@ -186,7 +186,7 @@ def estimate_system_dimension(size,volume_fraction,particle_number,inital_void_f
         particle_volume=particle_volume+tmp1
     particle_volume_fraction=1-inital_void_fraction
     system_volume=particle_volume/particle_volume_fraction
-    system_dimension=int((system_volume/2)**(1/3))
+    system_dimension=int((system_volume/insertion_height)**(1/3))
     
     return system_dimension
 

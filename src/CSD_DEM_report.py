@@ -10,7 +10,10 @@ settling_velocity=0.01 # m/s
 time_step=0.1 # us
 particle_number=2000
 initial_void_fraction=0.65 # initial void fraction of insertion region
-h=1 # the height of sampling region equals to h*system dimension
+sample_height=1.0 # the height of sampling region equals to sample_height*system dimension
+insertion_height=2 # the height of insertion region equals to insertion_height*system dimension
+system_height=5 # the height of system box equals to system_height*system dimension
+system_depth=4 # the depth of system box equals to system_depth*system dimension
 
 # particle property used
 Young_Modulus=5e6 # Pa
@@ -32,7 +35,7 @@ output=[]
 # generate DEM report
 min_particle_number=estimate_particle_number(size,fraction)
 Rayleigh_time_step=estimate_Rayleigh_time_step(size,fraction,Young_Modulus,poisson_ratio,particle_density)
-system_dimension=estimate_system_dimension(size,fraction,particle_number,initial_void_fraction)
+system_dimension=estimate_system_dimension(size,fraction,particle_number,initial_void_fraction,insertion_height)
 number_of_step=estimate_number_of_step(time_step,settling_velocity,system_dimension)
 min_porosity=1-2*(1-initial_void_fraction)
 
@@ -55,15 +58,15 @@ output.append("################## System Geometry Section ######################
 output.append("")
 str1="variable DEM_domain_half_width equal "+"{:.0f}".format(system_dimension/2)
 output.append(str1)
-str1="variable DEM_domain_height equal "+"{:.0f}".format(system_dimension*5)
+str1="variable DEM_domain_height equal "+"{:.0f}".format(system_dimension*system_height)
 output.append(str1)
-str1="variable DEM_domain_depth equal "+"{:.0f}".format(system_dimension*4)
+str1="variable DEM_domain_depth equal "+"{:.0f}".format(system_dimension*system_depth)
 output.append(str1)
 output.append("")
 
 str1="variable DEM_insertion_half_width equal "+"{:.0f}".format(system_dimension/2)
 output.append(str1)
-str1="variable DEM_insertion_top equal "+"{:.0f}".format(system_dimension*2)
+str1="variable DEM_insertion_top equal "+"{:.0f}".format(system_dimension*insertion_height)
 output.append(str1)
 str1="variable DEM_insertion_bottom equal "+"{:.0f}".format(0)
 output.append(str1)
@@ -71,7 +74,7 @@ output.append("")
 
 str1="variable DEM_sample_half_width equal "+"{:.0f}".format(system_dimension/2)
 output.append(str1)
-str1="variable DEM_sample_top equal "+"{:.0f}".format(system_dimension*h)
+str1="variable DEM_sample_top equal "+"{:.0f}".format(system_dimension*sample_height)
 output.append(str1)
 str1="variable DEM_sample_bottom equal "+"{:.0f}".format(0)
 output.append(str1)
